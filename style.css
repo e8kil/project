@@ -1,0 +1,1134 @@
+@font-face {
+    font-family: gamergirl;
+    src: url(./font/eskilfont.ttf);
+}
+
+/*.......................................................................Html body......................................................................... */
+
+html {
+	width: 100%;
+	height: 100%;
+	background: black;
+	padding: 0;
+	margin: 0;
+	overflow:hidden;
+	line-height: 1.42857143;
+	-webkit-user-select: none; 
+}
+
+body {
+	min-height:100%;
+	width:100%;
+	padding: 0;
+	margin: 0;
+	overflow:hidden;
+	margin:0 auto;
+}
+
+/*.......................................................................Container......................................................................... */
+
+.container {
+	position: absolute;
+	overflow:hidden;
+	background-image: url("./pics/bakgrunn3.jpg");
+	background-repeat: no-repeat;
+	background-position: center center;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	background-size: 100% 100%;
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+	unselectable="on"
+	onselectstart="return false;" 
+	onmousedown="return false;"
+	height: 100%;
+	width:100%;
+	min-height: 100%;
+	padding-left:0px;
+	padding-right: 0px;
+}
+
+.container::-webkit-scrollbar { 
+    display: none; 
+}
+
+/*.......................................................................Animations......................................................................... */
+
+.sun {
+	position: absolute;
+	width:50%;
+	top:-5%;
+	left:-20%;
+	margin:0 auto;
+	z-index: 5;
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 90000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 90000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 90000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    
+    animation-name: spin;
+    animation-duration: 90000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+.sky1 {
+	position: absolute;
+	width:40%;
+	height: 20%;
+	top:20%;
+	z-index: 0;
+}
+
+.sky2 {
+	position: absolute;
+	width:30%;
+	height: 15%;
+	top:40%;
+	z-index: 0;
+}
+
+.flowers {
+	position: absolute;
+	top:92%;
+	height:9%;
+	width:100%;
+	background-image: url("./pics/flowers51.gif");
+	background-repeat: no-repeat;
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+	unselectable="on"
+	onselectstart="return false;" 
+	onmousedown="return false;"
+	background-repeat: no-repeat;
+	background-position: center center;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	background-size: 100% 100%;
+	z-index:1;
+}
+
+/*......................................................... game grafics ............................................*/
+
+.poeng {
+	position: absolute;
+	top:4%;
+	height:10%;
+	text-align: center;
+    font-family: gamergirl;
+	-webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    opacity: 0.9;
+	color:white;
+    text-shadow: 1.5px 0 0 #000, -1.5px 0 0 #000, 0 1.5px 0 #000, 0 -1.5px 0 #000, 1.5px 1.5px #000, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000;
+   	font-size: 350%;
+}
+
+
+.kuleHolder {
+	position: absolute;
+	top:10%;
+	height: 90%;
+	width:100%;
+	overflow: hidden;	
+}
+
+
+.kule {
+	position: absolute;
+	top:44%;
+	left:0;
+	background-repeat: no-repeat;
+    background-position: center center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100% 100%;
+	-webkit-transform-style: preserve-3d;
+	padding:5px;
+}
+
+
+.spillHolder {
+	position: absolute;
+	left:0;
+	top:0;
+	height: 100%;
+	width:100%;
+
+}
+
+.timer {
+	width: 100%;
+	height:10%;
+	text-align: center;
+	position: absolute;
+	bottom: 0%;
+	z-index: 2;
+	color:white;
+	font-family: gamergirl;
+	text-shadow: 1.3px 0 0 #000, -1.3px 0 0 #000, 0 1.3px 0 #000, 0 -1.3px 0 #000, 1.3px 1.3px #000, -1.3px -1.3px 0 #000, 1.3px -1.3px 0 #000, -1.3px 1.3px 0 #000;
+}
+
+.gameLostFlash, .gameWonFlash {
+	position: fixed;
+	top:0%;
+	width: 100%;
+	height: 100%;
+	font-size: 0px;
+	z-index: 1001;
+	color:white;
+	font-family: gamergirl;
+}
+.won , .sorry {
+	text-align: center;
+	width: 100%;
+	top:40%;
+	font-size: 0px;
+	position: fixed;
+	-webkit-transition: all 500ms linear;
+}
+
+.completeBanner, .nxtLevelBanner, .failedBanner {
+	width:96%; 
+	margin-left:2%; 
+	margin-right:2%; 
+	position:absolute; 
+	top:0%; 
+	left:0%;
+}
+
+/*.wonText, .sorryText {
+	-webkit-transition: all 500ms linear;
+	position: fixed;
+	font-size: 30px;
+	top:50%;
+	width: 100%;
+	text-align: center;
+	color:white;
+	font-family: gamergirl;
+}*/
+
+/*.......................................................................Frontpage......................................................................... */
+
+
+
+.info {
+	height: 100%;
+	text-align: center;
+	width:100%;
+	margin:0 auto;
+-webkit-user-select: none; 
+}
+
+
+.logo {
+	height: 15%;
+	position: absolute;
+	width:100%;
+	top:2%;
+	text-align: center;
+    font-family: gamergirl;
+	-webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    opacity: 0.9;
+   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+   text-shadow: 1.5px 0 0 #000, -1.5px 0 0 #000, 0 1.5px 0 #000, 0 -1.5px 0 #000, 1.5px 1.5px #000, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000;
+   z-index: 100;
+
+}
+
+.fremsideKuleHolder {
+	height:10%;
+	position: absolute;
+	width:100%;
+	top:14%;
+}
+
+
+.fremsideKule {
+	-webkit-transform-style: preserve-3d;
+	position: relative;
+	left:0;
+	z-index: 100;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 5%;
+	background-repeat: no-repeat;
+    background-position: center center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100%;  
+}
+
+
+.fremsideKuleBilde {
+	background-image: url("./pics/gameBird.gif");
+	background-size: 100% 100%;
+	height:88%;
+
+}
+
+/*.......................................................................buttons......................................................................... */
+
+
+.play {
+	position: absolute; 
+	width:80%;
+	top:23%;
+	left:10%;
+	user-select: none;
+	z-index:11;
+}
+.play2 {
+	position: absolute; 
+	width:80%;
+	top:67%;
+	user-select: none;
+	z-index:11;
+		left:10%;
+}
+.play3 {
+	position: absolute; 
+	width:80%;
+	top:45%;
+	user-select: none;
+	z-index:11;
+	left:10%;
+}
+.timer1 {
+	position: relative; 
+	width:80%;
+	top:13%;
+	z-index:11;
+	left:10%;
+}
+.timer2 {
+	position: relative; 
+	width:80%;
+	top:38%;
+	z-index:11;
+	left:10%;
+}
+.timer3 {
+	position: relative; 
+	width:80%;
+	top:64%;
+	z-index:11;
+	left:10%;
+}
+.timer4 {
+	position: relative; 
+	width:100%;
+	top:13%;
+	z-index:11;
+}
+.timer5 {
+	position: relative; 
+	width:100%;
+	top:38%;
+	z-index:11;
+}
+.timer6 {
+	position: relative; 
+	width:100%;
+	top:64%;
+	z-index:11;
+}
+
+
+.game3 {
+	position: relative; 
+	width:100%;
+	top:25%;
+	z-index:11;
+}
+.game4 {
+	position: relative; 
+	width:100%;
+	top:50%;
+	z-index:11;
+}
+
+#spill {
+	position: relative;
+	z-index: 1;
+	width:50%;
+	left:25%;
+	margin-top:14%;
+	height: 100%;
+	text-align: center;
+    font-family: gamergirl;
+	-webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    opacity: 0.9;
+    text-shadow: 1.3px 0 0 #000, -1.3px 0 0 #000, 0 1.3px 0 #000, 0 -1.3px 0 #000, 1.3px 1.3px #000, -1.3px -1.3px 0 #000, 1.3px -1.3px 0 #000, -1.3px 1.3px 0 #000;
+    color:white;
+    -moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;" 
+	unselectable="on"
+	onselectstart="return false;" 
+	onmousedown="return false;"
+}
+
+#spill2 {
+	position: relative	;
+	z-index: 1;
+	width:50%;
+	left:25%;
+	margin-top:14%;
+	height: 100%;
+	text-align: center;
+    font-family: gamergirl;
+	-webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    opacity: 0.9;
+    text-shadow: 1.3px 0 0 #000, -1.3px 0 0 #000, 0 1.3px 0 #000, 0 -1.3px 0 #000, 1.3px 1.3px #000, -1.3px -1.3px 0 #000, 1.3px -1.3px 0 #000, -1.3px 1.3px 0 #000;
+    color:white;
+    	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none; 
+	unselectable="on"
+	onselectstart="return false;" 
+	onmousedown="return false;"
+}
+
+#spill3 {
+	position: relative	;
+	z-index: 1;
+	width:50%;
+	left:25%;
+	margin-top:14%;
+	height: 100%;
+	text-align: center;
+    font-family: gamergirl;
+	-webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    opacity: 0.9;
+    text-shadow: 1.3px 0 0 #000, -1.3px 0 0 #000, 0 1.3px 0 #000, 0 -1.3px 0 #000, 1.3px 1.3px #000, -1.3px -1.3px 0 #000, 1.3px -1.3px 0 #000, -1.3px 1.3px 0 #000;
+    color:white;
+    	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+	unselectable="on"
+	onselectstart="return false;" 
+	onmousedown="return false;"
+}
+
+#time1, #time2, #time3, #time4, #time5, #time6, #game3Txt, #game4Txt  {
+	position: absolute;
+	z-index: 9999;
+	width:50%;
+	left:27%;
+	margin-top:12%;
+	cursor: pointer;
+	height: 100%;
+	text-align: center;
+    font-family: gamergirl;
+	-webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    opacity: 0.9;
+    text-shadow: 1.5px 0 0 #000, -1.5px 0 0 #000, 0 1.5px 0 #000, 0 -1.5px 0 #000, 1.5px 1.5px #000, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000;
+    color:white;
+    -moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;" 
+	unselectable="on"
+	onselectstart="return false;" 
+	onmousedown="return false;"
+}
+
+#game3Txt, #game4Txt  {
+	margin-top:11%;
+}
+
+
+.back {
+	text-align: center;
+    font-family: gamergirl;
+}
+
+
+.retry {
+	text-align: center;
+    font-family: gamergirl;
+}
+
+.playAgain {
+	top:5%;
+}
+
+.nextLevel {
+	position: absolute;
+	z-index:11;
+	top:50%;
+	width:100%;
+}
+
+
+.playAgainLevel {
+	position: absolute; 
+	top:50%;  
+	z-index:11;
+	width:100%;
+}
+
+.playAgain, .backTimeSelectorDone, .backTimeSelectorDone2, .playAgainTime2, .playAgainTime  {
+	position: absolute;
+	width:100%;
+	top:50%;
+}
+
+.playAgainTimeFlash, .playAgainTime2Flash  {
+	position: fixed;
+	width:100%;
+	top:120%;
+	-webkit-transition: all 800ms linear;
+}
+
+.backTimeSelectorDone2 {
+	position: absolute;
+	top:50%;
+	width:100%;
+}
+
+#playAgain, #playAgainTime , #playAgainTime2{
+    text-align: center;
+    width: 50%;
+    left: 25%;
+    position: absolute; 
+    text-align:center;
+	margin-top:20%;
+}
+
+.retry {
+    text-align: center;
+    width: 50%;
+    left: 25%;
+    position:absolute; 
+    text-align:center;
+    margin-top:19%;
+    margin-bottom:2.5%;
+}
+
+.nxt {
+    text-align: center;
+    width: 50%;
+    left: 25%;
+    margin-top:20%;
+    position:absolute; 
+    text-align:center;
+}
+
+.back {
+	position: absolute;
+	bottom:0%; 
+	z-index:11;
+	-webkit-text-fill-color: black; /* Will override color (regardless of order) */
+    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+	width:30%;
+	
+}
+
+.backLevel {
+	bottom: 0%;
+	position: absolute; 
+	z-index:11;
+   -webkit-text-fill-color: black; /* Will override color (regardless of order) */
+    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+    width:30%;
+}
+
+.backLevel2 {
+	top:93%;
+	position: absolute; 
+	z-index:11;
+   -webkit-text-fill-color: black; /* Will override color (regardless of order) */
+    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+    width:30%;	
+}
+
+.backLevel3 {
+    position: absolute;
+    z-index: 9999;
+    bottom: 3%;
+    width: 30%;
+    left:35%;
+    font-family: gamergirl;
+    text-align: center;
+    line-height: 0;
+    -webkit-text-fill-color: black; /* Will override color (regardless of order) */
+    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+.backTimeSelector, .backTimeSelector2, .Game3and4Back {
+    position: absolute;
+    bottom: 3%;
+    z-index: 9999;
+    width: 30%;
+    font-family: gamergirl;
+    text-align: center;
+    line-height: 0;
+    -webkit-text-fill-color: black; /* Will override color (regardless of order) */
+    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+.backTimeSelectorDone, .backTimeSelectorDone2 {
+	position: absolute;
+	top:93%; 
+	z-index:11;
+	font-family: gamergirl;
+	-webkit-text-fill-color: black; /* Will override color (regardless of order) */
+    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+	width:30%;
+}
+
+#startGame, #continuePlay, #continuePlay2, #continuePlay3, #continuePlay4, #continuePlay5, #continuePlay6, #continuePlay7 {
+	padding-top:5px;
+	font-family: gamergirl;
+	border-radius: 20px;
+	border: 1px solid gray;
+	background: #fff;	
+	width:40%;
+	left:30%;
+	position: absolute;
+	bottom:20%;
+	color:#000;
+	text-align: center;
+}
+.timeLevel {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	top:20%;
+}
+.exitTime, .exitTimeLevel {
+	position: relative;
+	top:1%;
+	left:2%;
+	width:10%;
+	float:left;
+	height: 6%;
+	z-index: 500;
+}
+.retryTime, .retryTimeLevel {
+	position: relative;
+	top:1%;
+	float:left;
+	left:80%;
+	width:10%;
+	height: 6%;
+}
+
+
+/*............................................Game over/done/complete...........................................................*/
+
+.tapt, .TimesUp, .TimesUp2, .taptFlash {
+	position: relative;
+	width:100%;
+	top:25%; 
+	z-index:11; 
+	font-size: 400%;
+}
+
+.TimesUpFlash, .TimesUp2Flash, .taptFlash {
+	position: fixed;
+	width:100%;
+	top:-25%; 
+	z-index:11; 
+	font-size: 400%;
+    -webkit-transition: all 800ms linear;
+}
+
+.complete {
+	position: absolute;
+	width:100%;
+	top:25%; 
+	z-index:11; 
+}
+
+.completeFlash, .taptFlash {
+	position: fixed;
+	width:100%;
+	top:-25%; 
+	z-index:11;
+	text-align: center;
+    font-family: gamergirl;
+    text-shadow: 1.5px 0 0 #000, -1.5px 0 0 #000, 0 1.5px 0 #000, 0 -1.5px 0 #000, 1.5px 1.5px #000, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000;
+    color:white;
+    -webkit-transition: all 800ms linear;
+}
+
+.nextLevelFlash, .playAgainFlash {
+	position: fixed;
+	width:100%;
+	top:105%; 
+	z-index:11;
+	text-align: center;
+    font-family: gamergirl;
+    text-shadow: 1.5px 0 0 #000, -1.5px 0 0 #000, 0 1.5px 0 #000, 0 -1.5px 0 #000, 1.5px 1.5px #000, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000;
+    color:white;
+    -webkit-transition: all 800ms linear;
+}
+
+
+.taptHolder, .taptHolderLevel, .completeLevel, .TimeSelectorDone, .TimeSelectorDone2, .TimeSelectorDone2, .TimeSelectorDoneFlash, .TimeSelectorDone2Flash, .taptHolderFlash {
+	text-align: center;
+    font-family: gamergirl;
+	height: 100%;
+    width:100%;
+    text-shadow: 1.5px 0 0 #000, -1.5px 0 0 #000, 0 1.5px 0 #000, 0 -1.5px 0 #000, 1.5px 1.5px #000, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000;
+    color:white;
+    position: absolute; 
+    z-index:11;
+}
+
+.taptHolderLevel {
+	top:0%;
+}
+
+.taptLevel{
+	position: absolute;
+	z-index:11;
+	top:25%;
+	width:100%;
+}
+
+.levelCompleteHolder {
+	position:absolute; 
+	margin-top:14%;  
+	color:green; 
+	text-align:center;
+	width:100%;
+}
+
+.levelCompleteFlash {
+	position:absolute; 
+	margin-top:14%;  
+	color:green; 
+	text-align:center;
+	width:100%;
+}
+
+.holder {
+	position:absolute; 
+	margin-top:15%; 
+	text-align:center;
+	width:100%;
+}
+.levelFailedHolder {
+	position: absolute;
+    margin-top: 15%;
+    text-align: center;
+    width: 100%;
+    z-index: 99999;
+    color: #ff3232;
+}
+.dead {
+	position: absolute;
+	width: 19%;
+	height: 13%;
+	top:44%;
+	left:0;
+	background-repeat: no-repeat;
+    background-position: center center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: 95% 100%;
+	-webkit-transform-style: preserve-3d;
+}
+
+/*............................................Information...........................................................*/
+
+
+#information, #informationGame1, #information2, #informationGame2, #information3, #information4, #information5, #information6, #information7, #information8, #information9  {
+	position: absolute;
+	font-family: gamergirl;
+	width:100%;
+	background: black;
+	z-index: 200;
+	opacity: 0.8;
+	color:#fff;
+	height:110%;
+	overflow:hidden;
+	text-align: center;
+}
+/*#information8, #information9 {
+	text-align: center;
+}*/
+
+#informationText, #informationGame1Text, #information2Text, #informationGame2Text, #noKillInfo, #armorInfo, #smallBirdInfo, #timeAttackInfo, #AttackNumberOfBirds, #levelTimeGameInfoText {
+	position: absolute;
+	top:40%;
+	width:90%;
+	left:5%;
+}
+.infoBird {
+	width:18%; 
+	position:absolute; 
+	top:19%; 
+	left:41%;
+}
+.clock {
+	width:18%; 
+	position:absolute; 
+	top:27%; 
+	left:41%;
+}
+.infoSmallBird {
+	width:11%;
+	height:4%;
+	left:44.5%;
+	position: absolute;
+	top:26%;
+}
+
+
+/*.......................................settings...............................................................*/
+
+#settingsHolder {
+	position: fixed;
+	width:100%;
+	height: 100%;
+	z-index: 5000;
+	background: black;
+	opacity: 0.85;
+	top:0%;
+}
+#settings {
+	position: absolute;
+	bottom:10%;
+	width:72%;
+	height: 70%;
+	font-family: gamerGirl;
+	z-index: 9999;
+	left: 14%;
+	color:#fff;
+}
+#playSound {
+	position: absolute;
+	z-index: 11;
+	top:17%;
+	z-index: 9999;
+}
+/*#backgroundSound {
+	position: absolute;
+	z-index: 11;
+	top:30%;
+	z-index: 9999;
+}*/
+#playVibration {
+	position: absolute;
+	z-index: 11;
+	top:39%;
+	z-index: 9999;
+}
+#buttonVibration {
+	position: absolute;
+	z-index: 11;
+	top:61%;
+	z-index: 9999;
+}
+
+.settingsIcon {
+	position: absolute;
+	z-index: 11;
+	left:45%;
+	width:10%;
+	top:90%;
+	z-index: 1000;
+}
+#exitSettings {
+	position: absolute;
+	z-index: 11;
+	width:16%;
+	height:10%;
+	bottom:-9%;
+	z-index: 9999;
+	left:44%;
+}
+
+.sound {
+	position: absolute;
+	z-index: 11;
+	top:-15%;
+	z-index: 9999;
+}
+
+.vibration {
+	position: absolute;
+	z-index: 11;
+	top:-13%;
+	z-index: 9999;
+}
+.sound2 {
+	position: absolute;
+	z-index: 11;
+	top:-15%;
+	z-index: 9999;
+}
+
+.vibration2 {
+	position: absolute;
+	z-index: 11;
+	top:-13%;
+	z-index: 9999;
+}
+
+.soundOnOFF, .vibrationOnOff {
+	height:100%; 
+	width:100%; 
+	position:relative; 
+	top:10%;
+}
+
+.soundOnOFF2, .vibrationOnOff2 {
+	height:100%; 
+	width:100%; 
+	position:relative; 
+	top:10%;
+}
+
+
+
+/*.........................................................*/
+
+.levelHolder {
+	height: 100%;
+	width: 100%;
+	top:0px;
+}
+.TimeSelector, .TimeSelector2, .gameTreeAndFour {
+	position: fixed;
+	top:0%;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;	
+	z-index:100;
+}
+
+.levels {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top:0px;
+	overflow:auto;
+}
+
+
+
+.levels::-webkit-scrollbar { 
+    display: none; 
+}
+.TimeSelector::-webkit-scrollbar { 
+    display: none; 
+}
+.TimeSelector2::-webkit-scrollbar { 
+    display: none; 
+}
+.levelSky {
+	z-index: 100;
+	position:relative;
+	background-image: url("./pics/banner.gif");
+	margin-top:5%;
+	background-repeat: no-repeat;
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;" 
+	unselectable="on"
+	onselectstart="return false;" 
+	onmousedown="return false;"
+	background-repeat: no-repeat;
+    background-position: center center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100% 100%;
+    font-family: gamergirl;
+}
+
+.levelSky2 {
+	z-index: 100;
+	margin-top:5%;
+	position:relative;
+	background-image: url("./pics/banner.gif");
+	background-repeat: no-repeat;
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;" 
+	unselectable="on"
+	onselectstart="return false;" 
+	onmousedown="return false;"
+	background-repeat: no-repeat;
+    background-position: center center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100% 100%;
+    font-family: gamergirl;
+}
+
+.levelHolder::-webkit-scrollbar { 
+    display: none; 
+}
+
+
+.sky {
+	color: white;
+	position:relative;  
+	top:35%; 
+	text-align:center; 
+	text-shadow: 1.3px 0 0 #000, -1.3px 0 0 #000, 0 1.3px 0 #000, 0 -1.3px 0 #000, 1.3px 1.3px #000, -1.3px -1.3px 0 #000, 1.3px -1.3px 0 #000, -1.3px 1.3px 0 #000;
+}
+
+
+
+
+.lostPoint {
+	position: absolute;
+	width: 100%;
+	height: auto;
+	top:4%;
+	text-align: center;
+    font-family: gamergirl;
+    text-shadow: 1.5px 0 0 #000, -1.5px 0 0 #000, 0 1.5px 0 #000, 0 -1.5px 0 #000, 1.5px 1.5px #000, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000;
+    color:white;	
+}
+
+.countDown {
+    position: relative;
+    height:auto;
+    width: 50%;
+    margin: 0 auto;
+    font-family: gamergirl;
+    text-align: center;
+    cursor: default;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+   -webkit-text-fill-color: white; 
+   -webkit-text-stroke-width: 1px;
+    opacity: 0.5; 
+    cursor: default;
+
+}
+
+
+.countDownToStart {
+    z-index: 9999;
+    position: absolute;
+    min-height:100%;
+    width: 100%;
+    margin: 0 auto;
+    font-family: gamergirl;
+    text-align: center;
+    cursor: default;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+   -webkit-text-fill-color: white; 
+   -webkit-text-stroke-width: 4px;
+   line-height: initial;
+}
+
+
+/*...............................................stuff.....................................*/
+
+.highscore {
+	text-align: center;
+    font-family: gamergirl;
+	-webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: absolute;
+	width:100%; 
+	z-index:11;
+	bottom:4%;
+    opacity: 0.9;
+    color:black;
+    text-shadow: 1.5px 0 0 #000, -1.5px 0 0 #000, 0 1.5px 0 #000, 0 -1.5px 0 #000, 1.5px 1.5px #000, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000;
+    line-height: 0;
+}
+
+.shot {
+	position: absolute;
+	width: 12%;
+	height: 12%;
+	top:44%;
+	left:0;
+	background-repeat: no-repeat;
+    background-position: center center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100%;
+	-webkit-transform-style: preserve-3d;
+
+}
+
+.Exit {
+	text-align: center;
+    font-family: gamergirl;
+    top:36%;
+	height: 100%;
+    width:100%;	
+}

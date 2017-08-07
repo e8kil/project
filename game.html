@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" /> -->
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
+    <meta name="description" content="Bird Invasion">
+    <meta name="author" content="Eskil Klepaker">
+    <title>Bird Invasion</title>
+    <script src="./jsLibaries/jQuery/jquery-1.11.3.js"></script>
+    <script type='application/javascript' src='./jsLibaries/fastclick-master/lib/fastclick.js'></script>
+    <script src='./jsLibaries/amplify/amplify.min.js'></script>
+    <script src="./jsLibaries/moment.min.js"></script>
+    <script src="./jsLibaries/timer.js"></script>    
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+	<div class= "container">
+		<div class= "info">
+			<div class="logo">
+				<div id="logoText2" style="position: relative; z-index:11;">Bird invasion</div>
+			</div>
+			<div class="fremsideKuleHolder">
+				<div class="fremsideKule">
+					<div class="fremsideKuleBilde">
+					</div>
+				</div>
+			</div>
+			<div class = "play">
+				<img style='width:90%; margin-left:5%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="spill">Play <br> levels</div>
+			</div>
+			<div class = "play3">
+				<img style='width:90%; margin-left:5%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="spill3">Play <br> Time mode</div>
+			</div>
+			<div class = "play2">
+				<img style='width:90%; margin-left:5%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="spill2">Play <br> high score mode</div>
+			</div>
+			<div class="settingsIcon">
+				<img style="height:100%; width:100%; position:relative; top:10%;" src='./pics/settings.png'>
+			</div>
+		</div>
+
+		<div class ="spillHolder">
+			<div class = "poeng" style="text-align:center">
+			</div>	
+			<div class = "kuleHolder">
+			</div>
+		</div>
+
+		<div class = "taptHolder" style="position: absolute; z-index:11;">
+				<div class = "tapt">	
+					<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+						<div class='holder'>
+							Points: <span class ="freeGameTapt"></span>
+							<div id='hiScore'>high score: <span class="hscore"></span></div>
+					</div>
+				</div>
+				<div class = "playAgain">
+					<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+					<p id='playAgain'>Play again</p>
+				</div>
+				<div class = "back" >
+					home
+				</div>
+		</div>
+
+		<div class = "taptHolderFlash" style="position: absolute; z-index:11;">
+				<div class = "taptFlash">
+					<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+						<div class='holder'>
+							Points: <span class ="freeGameTapt"></span>
+							<div id='hiScore'>high score: <span class="hscore"></span></div>
+					</div>		
+				</div>
+				<div class = "playAgainFlash">
+					<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+					<p id='playAgain'>Play again</p>
+				</div>
+		</div>
+
+		<div class = "taptHolderLevel">
+				<div class="lostPoint"></div>
+				<div class = "taptLevel">
+					<img style='width:96%; position:absolute; left:2%;' src='./pics/banner.gif'>
+					<div class='levelFailedHolder'> Level <span class="levelFailedNumber"></span><br> Failed! </div>
+				</div>
+				<div class = "playAgainLevel">
+					<img class="failedBanner" src='./pics/banner.gif'>
+					<div class="retry">Retry</div>
+				</div>
+				<div class = "backLevel">
+					Back
+				</div>
+		</div>
+
+		<div class = "completeLevel">
+			<div class="lostPoint"></div>
+			<div class="complete">
+				<img class="completeBanner" src='./pics/banner.gif'>
+				<div class='levelCompleteHolder'> Level <span class="levelNumber"></span><br> complete! </div>
+			</div>
+			<div class = "nextLevel">
+		     	<img class="nxtLevelBanner" src='./pics/banner.gif'>
+				<div class="nxt"> Next Level </div>
+			</div>
+			<div class="backLevel2" style="position: relative; z-index:11;">
+				Back
+			</div>
+		</div>
+
+		<div class="gameLostFlash">
+				<div class = "taptFlash">
+					<img style='width:96%; position:absolute; left:2%;' src='./pics/banner.gif'>
+					<div class='levelFailedHolder'> Level <span class="levelFailedNumber"></span><br> Failed! </div>
+				</div>
+				<div class = "playAgainFlash">
+					<img class="failedBanner" src='./pics/banner.gif'>
+					<div class="retry">Retry </div>
+				</div>
+		</div>
+
+		<div class="gameWonFlash">
+			<div class ="completeFlash">
+					<img class="completeBanner" src='./pics/banner.gif'>
+					<div class='levelCompleteFlash'> Level <span class="levelNumber"></span><br> complete! </div>
+			</div>
+			<div class = "nextLevelFlash">
+		     	<img class="nxtLevelBanner" src='./pics/banner.gif'>
+				<div class="nxt"> Next Level </div>
+			</div>
+		</div>
+
+		<div class="levelHolder">
+			<div class = "levels">
+			</div>	
+			<div class = "backLevel3">
+				Home
+			</div>				
+			<div class = "flowers" style="z-index:199;">
+			</div>	
+		</div>
+
+		<div class="gameTreeAndFour">
+			<div class = "game3">
+				<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="game3Txt">Beat<br>kills</div>
+			</div>
+			<div class = "game4">
+				<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="game4Txt">Beat<br>time</div>
+			</div>
+			<div class = "Game3and4Back">
+				Home
+			</div>
+		</div>
+
+		<div class="TimeSelector">
+			<div class = "timer1">
+				<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="time1">15 seconds <br> <div id ="hiScore15">s </div></div>
+			</div>
+			<div class = "timer2">
+				<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="time2">30 seconds <br> <div id ="hiScore30"> </div> </div>
+			</div>
+			<div class = "timer3">
+				<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="time3">60 seconds <br> <div id ="hiScore60"> </div></div>
+			</div>
+			<div class = "backTimeSelector">
+				Back
+			</div>
+		</div>
+
+		<div class="TimeSelector2">
+			<div class = "timer4">
+				<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="time4">10 birds <br> <div id ="hiScore10Birds">Record: <span class="min10"></span><span class="sec10"></span><span class="msec10"> </span> </div></div>
+			</div>
+			<div class = "timer5">
+				<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="time5">30 birds <br> <div id ="hiScore30Birds">Record: <span class="min30"></span><span class="sec30"></span><span class="msec30"> </span>  </div> </div>
+			</div>
+			<div class = "timer6">
+				<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div id="time6">50 birds <br> <div id ="hiScore50Birds">Record: <span class="min50"></span><span class="sec50"></span><span class="msec50"> </span>  </div></div>
+			</div>
+			<div class = "backTimeSelector2">
+				Back
+			</div>
+		</div>
+
+		<div class = "exitTime">
+			<img style='width:96%; margin-left:2%; margin-right:2%;' src='./pics/exit.png'>
+		</div>
+		<div class = "retryTime">
+			<img style='width:96%; margin-left:2%; margin-right:2%;' src='./pics/retry.png'>
+		</div>
+		<div class = "exitTimeLevel">
+			<img style='width:96%; margin-left:2%; margin-right:2%;' src='./pics/exit.png'>
+		</div>
+		<div class = "retryTimeLevel">
+			<img style='width:96%; margin-left:2%; margin-right:2%;' src='./pics/retry.png'>
+		</div>
+		<div class = "TimeSelectorDone" style="position: absolute; z-index:11;">
+			<div class = "TimesUp">	
+				<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div class='holder'>
+					Points: <span class="timeScore"></span>
+					<div id='hiScore2'>High Score: <span class="numbOfKilledBirds"></span></div>
+				</div>
+			</div>
+			<div class = "playAgainTime">
+				<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<p id='playAgainTime'>Play again</p>
+			</div>
+			<div class = "backTimeSelectorDone" >
+				Back
+			</div>
+		</div>
+
+		<div class = "TimeSelectorDoneFlash" style="position: absolute; z-index:11;">
+			<div class = "TimesUpFlash">	
+				<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div class='holder'>
+					Points: <span class="timeScore"></span>
+					<div id='hiScore2'>High Score: <span class="numbOfKilledBirds"></span></div>
+				</div>
+			</div>
+			<div class = "playAgainTimeFlash">
+				<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<p id='playAgainTime'>Play again</p>
+			</div>
+		</div>
+
+		<div class = "TimeSelectorDone2" style="position: absolute; z-index:11;">
+			<div class = "TimesUp2">	
+				<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div class='holder'>
+					Time: <span class="min"></span><span class="sec"></span><span class="msec"></span>
+					<div id='hiScore3'>Record: <span class="minR"></span><span class="secR"></span><span class="msecR"></span></div>
+				</div>
+			</div>
+			<div class = "playAgainTime2">
+				<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<p id='playAgainTime2'>Play again</p>
+			</div>
+			<div class = "backTimeSelectorDone2" >
+				Back
+			</div>
+		</div>
+
+		<div class = "TimeSelectorDone2Flash" style="position: absolute; z-index:11;">
+			<div class = "TimesUp2Flash">	
+				<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<div class='holder'>
+					Time: <span class="min"></span><span class="sec"></span><span class="msec"></span>
+					<div id='hiScore3'>Record: <span class="minR"></span><span class="secR"></span><span class="msecR"></span></div>
+				</div>
+			</div>
+			<div class = "playAgainTime2Flash">
+				<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>
+				<p id='playAgainTime2'>Play again</p>
+			</div>
+		</div>
+
+		<div class = "countDown">
+				
+		</div>
+		<div class = "countDownToStart">
+
+		</div>
+
+		<div id="information">
+			<span id="informationText">There are too many Birds on this earth, and we need to get rid of them! <p style='text-align:center;'>Tap on the bird to kill it!</p></span>
+		</div>
+
+		<div id="information2">
+			<img class="infoBird" src='./pics/deadbird.png'> 
+			<div id="information2Text">
+				Great job! you got it! To complete a level, you need to kill as many birds as mentioned in the top! <br> If you miss one, you lose.. Good luck!
+			</div>
+			<div id='startGame'>
+				Play
+			</div>
+		</div>
+
+		<div id="informationGame1">
+			<span id="informationGame1Text">There are too many Birds on this earth, and we need to get rid of them! <p style='text-align:center;'>Tap on the bird to kill it!</p></span>
+		</div>
+
+		<div id="informationGame2">
+			<img class="infoBird" src='./pics/deadbird.png'> 
+			<div id="informationGame2Text">
+				Great job! you got it! Now go on and kill all the birds!<br> You can't let anyone pass! <br>And be careful, these birds are fast!
+			</div>
+			<div id='startGame'>
+				Play
+			</div>
+		</div>
+
+		<div id="information3">
+			<img class="infoBird" src='./pics/gameBirdSilver.gif'> 
+			<div id="noKillInfoHolder">
+				<div id="noKillInfo">
+					If you see a bird like this one, do not kill it! This bird is protected, and if you kill it you will lose..
+				</div>
+				<div id="continuePlay"> Play </div>
+			</div>
+		</div>
+
+		<div id="information4">
+			<img class="infoBird" src='./pics/proBird.gif'> 
+			<div id="armorInfoHolder">
+				<div id="armorInfo">
+					Some of the birds are starting to protect themselves... You have to hit the bird once to destroy the armor, and hit again to kill it!
+				</div>
+				<div id="continuePlay2"> Play </div>
+			</div>	
+		</div>
+
+		<div id="information5">
+			<img class="infoSmallBird" src='./pics/gameBird.gif'> 
+			<div id="smallBirdInfoHolder">
+				<div id="smallBirdInfo">
+					Some of the birds getting smaller... Do your best to kill them!
+				</div>
+				<div id="continuePlay3"> Play </div>
+			</div>
+		</div>
+
+		<div id="information6">
+			<img class="infoBird" src='./pics/gameBird.gif'> 
+			<div id="timeAttackInfoHolder">
+				<div id="timeAttackInfo">
+					Kill as many birds as you can before the time runs out! The faster you kill the birds, the faster they will appear.
+				</div>
+				<div id="continuePlay4"> Play </div>
+			</div>
+		</div>
+
+		<div id="information7">
+			<img class="infoBird" src='./pics/gameBird.gif'> 
+			<div id="AttackNumberOfBirdsHolder">
+				<div id="AttackNumberOfBirds">
+					Kill the numbers of birds as fast as you can! The faster you kill the birds, the faster they will appear.
+				</div>
+				<div id="continuePlay5"> Play </div>
+			</div>
+		</div>
+
+		<div id="information8">
+			<div class="timeLevel">Time level!</div>
+			<img class="clock" src='./pics/clock.png'> 
+			<div id="levelTimeGameInfo">
+				<div id="levelTimeGameInfoText">
+					In a time level you can let the birds cross the screen. <br> But you get a number of birds that you need to kill before the time runs out.
+				</div>
+				<div id="continuePlay6"> Got it! </div>
+			</div>
+		</div>
+		<div id="information9">
+			<div class="timeLevel">Time level!</div>
+			<img class="clock" src='./pics/clock.png'> 
+			<div id="levelTimeGameInfo">
+				<div id="levelTimeGameInfoText">
+					To complete the level: <br> Kill <span class="numberOfBirdsToKill"></span> birds in <span class="timeToKillTheBirds"></span> seconds! <br> good luck!
+				</div>
+				<div id="continuePlay7"> Play </div>
+			</div>
+		</div>
+
+		<div id="settingsHolder">
+			<div id="settings">
+				<div id="exitSettings">
+						<img style='width:96%; margin-left:2%; margin-right:2%;' src='./pics/exit2.png'>
+				</div>
+
+				<div id="playSound">
+					Play sound 
+					<div class = "sound ">
+					</div>
+				</div>
+				<div id="playVibration">
+					play vibration
+					<div class = "vibration">
+					</div>
+				</div>
+				<div id="buttonVibration">
+					Button vibration
+					<div class = "vibration2">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="timer">
+		</div>
+
+		<audio id="success" src="./sound/blop.wav" ></audio>
+		<audio id="complete" src="./sound/complete.mp3" ></audio>
+		<audio id="failed" src="./sound/gameOver.mp3" ></audio>
+		
+		<div class= "sun">
+			<img style='width:100%; position:absolute;' src='./pics/sun.png'>
+		</div>
+		<div class= "sky1">
+			<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/sky2.png'>
+		</div>
+		<div class= "sky2">
+			<img style='width:90%; margin-left:5%; margin-right:7%; position:absolute; top:0%; left:0%;' src='./pics/sky3.png'>
+		</div>
+
+		<div class = "flowers">	
+		</div>	
+
+	</div>
+
+	<script src="./js/animations/sky.js"></script>
+	<script src="./js/animations/fremsideKule.js"></script>
+
+<!-- 	<script src="./js/play.js"></script> -->
+
+
+	<!-- freeMode -->
+	<script src="./js/gameModes/freeMode/game/play.js"></script>
+	<script src="./js/gameModes/freeMode/buttons/buttons.js"></script>
+	<script src="./js/gameModes/freeMode/style/style.js"></script>
+
+
+	<!-- timeMode -->
+	<script src="./js/gameModes/timeMode/game/play.js"></script>
+	<script src="./js/gameModes/timeMode/buttons/buttons.js"></script>
+	<script src="./js/gameModes/timeMode/style/style.js"></script>
+
+	<!-- levelMode -->
+	<script src="./js/gameModes/levelMode/game/play.js"></script>
+	<script src="./js/gameModes/levelMode/game/playTime.js"></script>
+	<script src="./js/gameModes/levelMode/buttons/buttons.js"></script>
+	<script src="./js/gameModes/levelMode/style/style.js"></script>
+	<script src="./js/gameModes/levelMode/levels/level.js"></script>
+
+	<!-- Storage -->
+	<script src="./js/storage/localStorage.js"></script>
+
+	<!-- soundAndVibration -->
+	<script src="./js/vibrationAndSound/sound.js"></script>
+	<script src="./js/vibrationAndSound/vibration.js"></script>
+
+	<!-- styles -->
+	<script src="./js/style/styleScript.js"></script>	
+
+	<!-- intro -->
+	<script src="./js/intro/intro.js"></script>
+
+	<!-- Settings -->
+	<script src="./js/settings/settings.js"></script>
+
+	<!-- script -->
+	<script src="./js/script.js"></script>
+
+</body>
+</html>
