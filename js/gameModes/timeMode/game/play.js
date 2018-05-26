@@ -3,8 +3,6 @@
 
 var game;
 var birdnumber;
-var leftOrRight;
-var	bird;
 var time;
 var timeouts = [];
 var speed;
@@ -12,10 +10,7 @@ var	checkIfLostSpeed;
 var	removeBirdSpeed;
 var fallSpeed;
 var GameStop;
-var sideHoyde = $(window).height();
-var birdSize = sideHoyde/9;
 var checkIfLostTimeout;
-var container = $(window).height();
 var removeBirdTimeout = [];
 
 //........................................................................................SpillTime............................................................................
@@ -30,8 +25,7 @@ function spillTime(timeToPlay) {
 	lastplayedTime	= timer;
 	oneSec = 1;
 	countdownOver = false;
-	$(".poeng").html("0");
-	$(".poeng").css("width",""+(sideBredde)+"px");
+	$(".points").html("0");
 	game = 3;
 	birdnumber = 0;
 	killedWrongBird = false;
@@ -57,6 +51,7 @@ function spillTime(timeToPlay) {
 var numberOfBirdsToKill; 
 var ms, min, sec, ms2;
 function spillTime2(numbBirds) {
+	numbBirds = numbBirds;
     StopAndRemoveBirds = [];
 	birdnumber = 0;
 	counter = 0;
@@ -67,9 +62,8 @@ function spillTime2(numbBirds) {
 	countdownOver = false;
 	GameStop = false;
 
-	$('.poeng').show();
-	$(".poeng").html("0/"+numberOfBirdsToKill+"");
-	$(".poeng").css("width",""+(sideBredde)+"px");
+	$('.points').show();
+	$(".points").html("0/"+numberOfBirdsToKill);
 	$(".exitTime, .retryTime").show();
 
 	setSpeedTimeGame();
@@ -91,7 +85,7 @@ function spillTime2(numbBirds) {
 var countdownOver;
 var countDownToEnd;
 function countDownTimeGame(time) {
-	$(".countDown").html(""+timer+"");
+	$(".countDown").html(timer);
 	if (timer !== 0) {
 		countDownToEnd = setTimeout(function() {
 			countDownTimeGame();
@@ -102,7 +96,7 @@ function countDownTimeGame(time) {
 	else {
 		GameStop = true;
 		countdownOver = true;
-		$(".kuleHolder").empty();
+		$(".birdsContainer").empty();
 		$('.spillHolder').hide();
 		
 		clearTimeoutsTimeGame();	
@@ -132,7 +126,7 @@ function countDownToStartTimeGame(numberOfBirdsOrTime, gameValg){
 		GameStop = false;
 		$('.countDownToStart').hide();
 		$('.spillHolder').show();
-		$('.poeng').show();
+		$('.points').show();
 
 		if(gameValg == 1) {
 			spillTime(numberOfBirdsOrTime);
@@ -213,17 +207,17 @@ function getTimeTimeGame(){
 //........................................................................................SetSpeed............................................................................
 
 function setSpeedTimeGame(){
-	speed = 850;
+	speed = 1000;
 	checkIfLostSpeed = speed + 1;
-	removeBirdSpeed = speed + 50;
-	fallSpeed = speed+300;
+	fallSpeed = 1200;
+	removeBirdSpeed = speed + fallSpeed;
 }
 
 function setSpeedTimeTimeGame(){
-	speed = 1150;
+	speed = 1000;
 	checkIfLostSpeed = speed + 1;
-	removeBirdSpeed = speed + 50;
-	fallSpeed = speed+300;
+	fallSpeed = 1200;
+	removeBirdSpeed = speed + fallSpeed;
 }
 
 
@@ -240,43 +234,38 @@ function createBirdTimeGame() {
 		dir = dir - (dir*2);
 	}
 
-	var birdLeftOrRightGif;
-	var marginLeft;
+	var leftOrRight;
+	var leftRightString;
     if (random>=0.5){
-    	leftOrRight = 2;
-    	birdLeftOrRightGif = "2";
-    	marginLeft = -20;
-	} else {
+		leftOrRight = 2;
+		leftRightString = "right";
+
+    } else {
 		leftOrRight = 1;
-    	birdLeftOrRightGif = "";
-    	marginLeft = 20;
-	}
+		leftRightString = "left";
+    }
 
+	var bird =  "<div id="+birdnumber+" "+
+			"class='"+leftOrRight+" bird timeGameBird normalBird'>"+
+				"<div class='"+leftRightString+"Bird image'></div> "+
+			"</div>";
+	$(".birdsContainer").append(bird);	
 
-	bird = "<div id="+birdnumber+"  class = '"+leftOrRight+" kule timeGameBird'></div>";
-	$(".kuleHolder").append(bird);	
-
-	$("#"+birdnumber+"").css("width",""+birdSize+"px");
-	$("#"+birdnumber+"").css("height",""+(birdSize*0.65)+"px");
-    $("#"+birdnumber+"").html("<div class='birdImageHolder' style='width:"+kuleBirdWidth+"%; position:relative; left: "+marginLeft+"px; height:"+kuleBirdHeight+"%; margin-top:"+kuleBirdMarginTop+"%; float:right;'> <img style='height:100%; width:100%;' src='./pics/gameBird"+birdLeftOrRightGif+".gif'> </div>");
-
-    var kuleB = $(".kule").width();
-    var spillBredde = containerBredde;
+	var birdWidth = $(".bird").width();
 
     if(leftOrRight == 1) {
-		$("#"+birdnumber+"").css({
-			"left" : "-"+kuleB+"px",
-			"top" : ""+calHeight+"%",
-			"z-index" : "1000",
+		$("#"+birdnumber).css({
+			"left" : "-"+birdWidth+"px",
+			"top" : calHeight+"%"
 		});
     }
     else {
-		$("#"+birdnumber+"").css({
-			"left" : ""+spillBredde+"px",
-			"top" : ""+calHeight+"%",
-			"z-index" : "1000",
+		$("#"+birdnumber).css({
+			"left": "" + $('.container').width()+"px",
+			"top" : calHeight+"%"
 		});
     }
+
 
 	var temporaryBirdNumber = birdnumber;
 	StopAndRemoveBirds.push(setTimeout(function(){
@@ -292,18 +281,15 @@ function createBirdTimeGame() {
 //........................................................................................gamePlay..............................................................................................
 
 function gameplayTimeGame(nr, lr, dir){
-	var birdWidth = $(".kule").width();
-	var spillBredde = sideBredde + birdWidth;
-	$(".birdImageHolder").css("z-index","-1");
+	var transformWidth = $('.container').width() + $(".bird").width() + 20;
 
 	if(lr == 1){
-		$("#"+nr+"").css("left","0%");
-		$("#"+nr+"").css("-webkit-transition","all "+speed+"ms linear");
-		$("#"+nr+"").css("-webkit-transform","translate("+((spillBredde-birdWidth)+20)+"px, "+dir+"%)");
+		document.getElementById(nr).style.transitionDuration = speed+"ms";
+		document.getElementById(nr).style.transform = "translate(" + (transformWidth)+"px, "+dir+"%)";
 	}
 	else {
-		$("#"+nr+"").css("-webkit-transition","all "+speed+"ms linear");
-		$("#"+nr+"").css("-webkit-transform","translate(-"+(spillBredde+20)+"px, "+dir+"%)");
+		document.getElementById(nr).style.transitionDuration = speed + "ms";
+		document.getElementById(nr).style.transform = "translate(-" + (transformWidth)+"px, "+dir+"%)";
 	}
 }
 
@@ -311,7 +297,7 @@ function gameplayTimeGame(nr, lr, dir){
 
 function checkIfLostTimeGame(nr){
 	//Game Lost if nr dont have class shot
-	if(!$("#"+nr+"").hasClass("shot")) {
+	if(!$("#"+nr).hasClass("shot")) {
 		removeBirdTimeGame(nr);
 		if(!GameStop) {
 	        timeouts.push(window.setTimeout(function(){
@@ -326,7 +312,6 @@ function checkIfLostTimeGame(nr){
 $(document).on('touchstart ', '.timeGameBird', function(){
 
 	var id = $(this).attr("id");
-
 	$(this).css("z-index","9");
 
 	if(game == 3) {
@@ -338,7 +323,7 @@ $(document).on('touchstart ', '.timeGameBird', function(){
 				createBirdTimeGame();
 	        }, 150));	
 
-			$(".poeng").html(""+counter+"");
+			$(".points").html(counter);
 			if($(this).hasClass("1")) {
 				val = 1;
 				$(this).attr('class', '1 shot timeGameBird');
@@ -354,7 +339,7 @@ $(document).on('touchstart ', '.timeGameBird', function(){
 	else if(game == 4) {
 		checkIfSoundAndVibrationTimeGame("success", 50);
 		counter++;
-		$(".poeng").html(""+counter+"/"+numberOfBirdsToKill+"");
+		$(".points").html(counter+"/"+numberOfBirdsToKill);
 
 		if($(this).hasClass("1")) {
 			val = 1;
@@ -366,6 +351,7 @@ $(document).on('touchstart ', '.timeGameBird', function(){
 		}
 
 		if(counter == numberOfBirdsToKill) {
+			$(".spillHolder, .exitTime, .retryTime").hide();
 			fallTimeGame(id,val, 1);
 			getTimeTimeGame();
 			gameFourDoneTimeGame();
@@ -383,33 +369,33 @@ $(document).on('touchstart ', '.timeGameBird', function(){
 //........................................................................................Bird fall..........................................................................................
 
 function fallTimeGame(id, leftright, bird){
-	$("#"+id+"").className = "dead";
-	var birdDistanceToTop = $("#"+id+"").offset().top;
-	var birdFall = container - birdDistanceToTop;
-	var lengthin = $("#"+id+"").position();
 
-	$("#"+id+"").css({
+	var birdDistanceToTop = $("#" + id + "").offset().top;
+	var birdFall = $(window).height() - birdDistanceToTop;
+	var percentScreenFall = 1 - birdDistanceToTop / $(window).height();
+
+	$("#" + id).css({
 		"-webkit-transition": "all 0ms linear",
 		"-webkit-transform": "translate3d(0px, 0px, 0px)",
-		"-webkit-transition": "all "+(removeBirdSpeed*0.8)+"ms linear",
-		"height": "0%",
-		"width": "0%",
-		"top":""+container+"px"
+		"-webkit-transition": "all " + fallSpeed * percentScreenFall + "ms linear",
+		"height": $("#" + id).width() * 0.7 + "px",
+		"width": $("#" + id).height() * 0.7 + "px",
+		"top": "100%"
 	});
 
-	if(leftright === 1){
-    	$("#"+id+"").html("<img style='height:100%; width:100%;' src='./pics/dead1.gif'>");
-    	$("#"+id+"").css("-webkit-transform","translate3d(400px, 0px, 0px)");
+	if (leftright === 1) {
+		$("#" + id).html("<div class='spinLeft deadBirdLeft'></div>");
+		$("#" + id).css("-webkit-transform", "translate3d(400px, 0px, 0px)");
 	}
 	else {
-    	$("#"+id+"").html("<img style='height:100%; width:100%;' src='./pics/dead2.gif'>");
-    	$("#"+id+"").css("-webkit-transform","translate3d(-400px, 0px, 0px)");
+		$("#" + id).html("<div class='spinRight deadBirdRight'></div>");
+		$("#" + id).css("-webkit-transform", "translate3d(-400px, 0px, 0px)");
 	}
 
 	if(bird == 1) {
         removeBirdTimeout.push(window.setTimeout(function(){
 			removeBirdLevelGame(id);
-        }, fallSpeed));
+		}, fallSpeed));
 	}
 }
 
@@ -420,9 +406,10 @@ function spillTimeDoneTimeGame() {
 	clearTimeoutsTimeGame();
 	var score = counter;
 	$(".timer").hide();
-	var killedBirds = amplifyStorageTime(score, lastplayedTime);
+	var killedBirds = timeModeLocalStorage(score, lastplayedTime);
 	score = [counter, killedBirds];
- 	gameFlashTimeGame("", score);
+	 gameFlashTimeGame("", score);
+	$(".birdsContainer").hide();
 	setTimeout(function(){
 		gameDoneHtmlTimeGame("");
 	},830);
@@ -432,10 +419,9 @@ function gameFourDoneTimeGame() {
 	GameStop = true;
 	clearTimeoutsTimeGame();
 	var score = ScoreInMilliseconds;
-    var doneTime = amplifyStorageTime2(score, numberOfBirdsToKill);
-    console.log(doneTime);
+	var doneTime = timeModeLocalStorage2(score, numberOfBirdsToKill);
  	gameFlashTimeGame("2", doneTime);
-
+	$(".birdsContainer").hide();
 	setTimeout(function(){
 		gameDoneHtmlTimeGame("2");
 	},830);	
@@ -444,7 +430,7 @@ function gameFourDoneTimeGame() {
 //........................................................................................Remove Bird..............................................................................................
 
 function removeBirdTimeGame(id){
-	$("#"+id+"").remove();
+	$("#"+id).remove();
 }
 
 //........................................................................................checkIfSoundAndVibrationTimeGame..............................................................................................
@@ -482,24 +468,17 @@ function clearTimeoutsTimeGame() {
 
 function gameFlashTimeGame(data, score) {
 	$('.TimeSelectorDone'+data+'Flash').show();
-	$(".TimesUp"+data+"Flash").css("width",""+((sideHoyde/3.9)*2)+"px");
-	var playWidth = $(".TimesUp"+data+"Flash").width();
-	$(".TimesUp"+data+"Flash, .playAgainTime"+data+"Flash").css("width",""+((sideHoyde/3.9)*2)+"px");
-	$(".TimesUp"+data+"Flash, .playAgainTime"+data+"Flash").css("left",""+((sideBredde-playWidth)/2)+"px");
-	$(".holder").css("font-size",""+(sideHoyde/24)+"px");
-	$("#playAgainTime"+data+"Flash").css("font-size",""+(sideHoyde/22)+"px");
 	$(".timer").hide();
 
 	if(data != 2) {
-		console.log(score);
 		$('.timeScore').html(score[0]);
 		$(".numbOfKilledBirds").html(score[1]);
 	} else {
-		$('.min').html(score[0][0]+":");
-		$('.sec').html(score[0][1]+":");
+		$('.min').html(score[0][0]+".");
+		$('.sec').html(score[0][1]+".");
 		$('.msec').html(score[0][2]);	
-		$('.minR').html(score[1][0]+":");
-		$('.secR').html(score[1][1]+":");
+		$('.minR').html(score[1][0]+".");
+		$('.secR').html(score[1][1]+".");
 		$('.msecR').html(score[1][2]);
 
 		if(score[0][0] == 0) {
@@ -514,9 +493,7 @@ function gameFlashTimeGame(data, score) {
 			$('.minR').show();
 		}
 	}
-
 	setTimeout(function() {
-		console.log(".TimesUp"+data+"Flash");
 		$(".TimesUp"+data+"Flash").css("top","25%");
 		$(".playAgainTime"+data+"Flash").css("top","50%");
 	}, 30);
@@ -533,16 +510,10 @@ function gameFlashTimeGame(data, score) {
 //........................................................................................gameDoneHtmlTimeGame.............................................................................................
 
 function gameDoneHtmlTimeGame(g) {
-	$(".kuleHolder").empty();
+	$(".birdsContainer").show();
+	$(".birdsContainer").empty();
 	$('.spillHolder').hide();
-	$(".TimesUp"+g+"").css("width",""+((sideHoyde/3.9)*2)+"px");
-	var playWidth = $(".TimesUp"+g+"").width();
-	$(".TimesUp"+g+", .playAgainTime"+g+"").css("width",""+((sideHoyde/3.9)*2)+"px");
-	$(".TimesUp"+g+", .playAgainTime"+g+"").css("left",""+((sideBredde-playWidth)/2)+"px");
-	$(".holder").css("font-size",""+(sideHoyde/24)+"px");
-	$("#playAgainTime"+g+"").css("font-size",""+(sideHoyde/22)+"px");
 	$(".Spillholder").hide();
-	$(".kuleHolder").empty();
 	$(".countDown, .exitTime, .retryTime").hide();
-	$(".TimeSelectorDone"+g+"").show();
+	$(".TimeSelectorDone"+g).show();
 }

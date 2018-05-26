@@ -10,23 +10,14 @@ function onDeviseReady(){
     receivedElement.setAttribute('style', 'display:block;');
 }
 
-htmlAndCss();
-fremsideKule();
-skyer();
-var levelScore = checkLocalStorageLevel();
 FastClick.attach(document.body);
-checkLocalStorage();
 soundAndVibration();
 
 $(document).ready(function(){
 	//amplify.store("score", 0);
-	amplify.store("level", 15);
-	//amplify.store("10Birds", 1000000);
-	//amplify.store("30Birds", 10000000000);
-	//amplify.store("50Birds", 10000000000);
+	// amplify.store("level", 10);
+    // amplify.store("10Birds", 10000000000);
+	// amplify.store("30Birds", 10000000000);
+    // amplify.store("50Birds", 10000000000);
 });
 
-
-window.onresize = function(event) {
-    htmlAndCss();
-};

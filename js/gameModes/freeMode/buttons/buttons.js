@@ -2,12 +2,11 @@
 //........................................................................................Play agian..........................................................................................
 
 $(document).on("click", "#playAgain", function() {
-	vibrationclick();
 	counter = 0;
 	birdnumber = 0;
 	lost = "false";
-	$(".poeng").html(""+counter+"");
-	$('.poeng').show();
+	$(".points").html(counter);
+	$('.points').show();
 	$('.taptHolder').hide();
 	$('.spillHolder').show();
 	createBirdFreeGame();
@@ -16,10 +15,8 @@ $(document).on("click", "#playAgain", function() {
 //........................................................................................Back..........................................................................................
 
 $(document).on("click", ".back", function() {
-	vibrationclick();
 	counter = 0;
-	$(".poeng").html(""+counter+"");
-	fremsideKule();
+	$(".points").html(counter);
 	$('.taptHolder').hide();
 	$('.info').show();
 });
@@ -28,21 +25,17 @@ $(document).on("click", ".back", function() {
 
 
 $("#spill2").click(function(){
-	vibrationclick();
 	var game = 22;
 	fremsideVenstreHoyere = 2;
-	$(".fremsideKuleBilde").css("transform","scaleX(1)");
-	$(".fremsideKule").attr('style','left: 0px', 'height: '+kuleFremsidebredde+'');
 	$('.info').hide();
 	$('.spillHolder').show();
-	$('.poeng').show();
-	clearTimeout(fremsideNedtelling);
 
 	try {
 	   var a = amplify.store("score");
 
 		if(a>=2){
 			window.setTimeout("spillFree()", 500);
+			$('.points').show();
 		}
 		else {
 			introSpill(game);
@@ -51,8 +44,4 @@ $("#spill2").click(function(){
 	} catch(e){
 			introSpill(game);
 	}
-});
-
-$(window).resize(function() {
- 	htmlAndCss();
 });

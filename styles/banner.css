@@ -1,0 +1,31 @@
+.banner {
+    background-size: 100%;
+    height:100%;
+    background-repeat: no-repeat;
+}
+
+.playBanner, .imageBanner, .levelBanner  {
+    width:100%; 
+    position:absolute;
+    left:50%;  
+    top:0%; 
+    animation: changeImage 0.35s infinite;
+    height:165px;
+    max-width: 320px;
+    transform: translate(-50%, 0%);
+    max-height:165px;
+}
+
+.levelBanner  { 
+    position: relative;
+    top: 10px;
+}
+
+@keyframes changeImage {
+  0% {
+   background-image: url('../pics/banners/banner.svg');;
+  }
+  100% {
+    background-image: url('../pics/banners/banner2.svg');
+  }
+}
