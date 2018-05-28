@@ -1,17 +1,15 @@
-function amplifyStorage (score){
-	var a = amplify.store("score");
-	if(a<score){
-		var ampScore = score;
-		amplify.store("score", ampScore);
-
-		return ampScore;
+function freeModeLocalStorage(score){
+	var localScore = amplify.store("score");
+	if (localScore < score || localScore == undefined) {
+		amplify.store("score", score);
+		return score;
 	}
 	else {
-		return a;
+		return localScore;
 	}
 }
 
-function amplifyStorageTime (scoreTime, time){
+function timeModeLocalStorage (scoreTime, time){
 	var record;
 	if (time == 15) {
 		record = amplify.store("15");
@@ -32,14 +30,13 @@ function amplifyStorageTime (scoreTime, time){
 	}
 }
 
-
 function checkLocalStorageTime15 (){
 	try {
 	   var a = amplify.store("15");
 
 		if(a>=0){
 			var AmpScore = a;
-			$("#hiScore15").html("High Score: "+AmpScore+"");
+			$("#hiScore15").html("High Score: "+AmpScore);
 		}
 		else {
 			amplify.store("15", 0);
@@ -59,7 +56,7 @@ function checkLocalStorageTime30 (){
 
 		if(b>=0){
 			var AmpScore = b;
-			$("#hiScore30").html("High Score: "+AmpScore+"");
+			$("#hiScore30").html("High Score: "+AmpScore);
 		}
 		else {
 			amplify.store("30", 0);
@@ -78,7 +75,7 @@ function checkLocalStorageTime60 (){
 		var c = amplify.store("60");
 		if(c>=0){
 			var AmpScore = c;
-			$("#hiScore60").html("High Score: "+AmpScore+"");
+			$("#hiScore60").html("High Score: "+AmpScore);
 		}
 		else {
 			amplify.store("60", 0);
@@ -92,8 +89,7 @@ function checkLocalStorageTime60 (){
 	}
 }
 
-
-function amplifyStorageTime2 (scoreTime, numbBirds){
+function timeModeLocalStorage2 (scoreTime, numbBirds){
 	var t = numbBirds;
     var record;
 	if (t == 10) {
@@ -139,7 +135,6 @@ function amplifyStorageTime2 (scoreTime, numbBirds){
 	}
 }
 
-
 function checkLocalStorageTime10Birds (){
 	try {
 		var a = amplify.store("10Birds");
@@ -156,8 +151,8 @@ function checkLocalStorageTime10Birds (){
 			    seconds = (seconds < 10) ? "0" + seconds.toString() : seconds.toString();
 			    msseconds = msseconds.toString().substring(0,2); 
 
-				$('.min10').html(minutes+":");
-			    $('.sec10').html(seconds+":");
+				$('.min10').html(minutes+".");
+			    $('.sec10').html(seconds+".");
 			    $('.msec10').html(msseconds);
 
 			    if(minutes == 0) {
@@ -178,7 +173,6 @@ function checkLocalStorageTime10Birds (){
 	}
 }
 
-
 function checkLocalStorageTime30Birds (){
 	try {
 		var b = amplify.store("30Birds");
@@ -197,8 +191,8 @@ function checkLocalStorageTime30Birds (){
 			    seconds = (seconds < 10) ? "0" + seconds.toString() : seconds.toString();
 			    msseconds = msseconds.toString().substring(0,2); 
 
-				$('.min30').html(minutes+":");
-			    $('.sec30').html(seconds+":");
+				$('.min30').html(minutes+".");
+			    $('.sec30').html(seconds+".");
 			    $('.msec30').html(msseconds);
 
 			    if(minutes == 0) {
@@ -237,8 +231,8 @@ function checkLocalStorageTime50Birds (){
 			    seconds = (seconds < 10) ? "0" + seconds.toString() : seconds.toString();
 			    msseconds = msseconds.toString().substring(0,2); 
 				
-				$('.min50').html(minutes+":");
-			    $('.sec50').html(seconds+":");
+				$('.min50').html(minutes+".");
+			    $('.sec50').html(seconds+".");
 			    $('.msec50').html(msseconds);
 
 			    if(minutes == 0) {
@@ -258,29 +252,7 @@ function checkLocalStorageTime50Birds (){
 	}
 }
 
-
-function checkLocalStorage (){
-	try {
-	   var a = amplify.store("score");
-		if(a>=0){
-			var AmpScore = a;
-			$("#highscoreText").html("High Score: "+AmpScore+"");
-		}
-		else {
-			amplify.store("score", 0);
-			$("#highscoreText").html("High Score: 0");
-			var b = amplify.store("score");
-		}
-
-	} catch(e){
-		amplify.store("score", 0);
-		$("#highscoreText").html("High Score: 0");
-	     var b = amplify.store("score");
-	}	
-}
-
-
-function amplifyStorageLevel (level){
+function levelModeLocalStorage (level){
 	var a = amplify.store("level");
 	if(a<(level)){
 		var ampScore = level
@@ -312,9 +284,7 @@ function checkLocalStorageLevel (){
 	}	
 }
 
-
-
-function amplifyStorageSound (sound){
+function soundLocalStorage (sound){
 	amplify.store("sound", sound);
 }
 
@@ -337,32 +307,7 @@ function checkLocalStorageSound (){
 	}	
 }
 
-
-function amplifyStorageSound2 (sound2){
-	amplify.store("sound2", sound2);
-}
-
-function checkLocalStorageSound2 (){
-	try {
-	   var a = amplify.store("sound2");
-
-		if(a==1){
-			return a;
-		}
-		else {
-			var b = 2;
-			return b;
-		}
-
-	} catch(e){
-		amplify.store("sound2", 1);
-	    var b = amplify.store("sound2");
-	    return b;
-	}	
-}
-
-
-function amplifyStorageVibration(vibration){
+function vibrationLocalStorage(vibration){
 	amplify.store("vibration", vibration);
 }
 
@@ -381,29 +326,6 @@ function checkLocalStorageVibration(){
 	} catch(e){
 		amplify.store("vibration", 1);
 	    var b = amplify.store("vibration");
-	    return b;
-	}	
-}
-
-function amplifyStorageVibration2(vibration2){
-	amplify.store("vibration2", vibration2);
-}
-
-function checkLocalStorageVibration2(){
-	try {
-	   var a = amplify.store("vibration2");
-
-		if(a==1){
-			return a;
-		}
-		else {
-			var b = 2;
-			return b;
-		}
-
-	} catch(e){
-		amplify.store("vibration2", 1);
-	    var b = amplify.store("vibration2");
 	    return b;
 	}	
 }

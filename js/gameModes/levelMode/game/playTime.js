@@ -1,9 +1,5 @@
-
 //........................................................................................Global variables............................................................................
-
 var birdnumber;
-var leftOrRight;
-var	bird;
 var time;
 var timeouts = [];
 var speed;
@@ -11,10 +7,6 @@ var	checkIfLostSpeed;
 var	removeBirdSpeed;
 var fallSpeed;
 var GameStop;
-var sideHoyde = $(window).height();
-var birdSize = sideHoyde/9;
-var checkIfLostTimeout;
-var container = $(window).height();
 var removeBirdTimeout = [];
 var numberOfBirds;
 
@@ -24,8 +16,7 @@ var timer = 0;
 var lastplayedTime;
 
 function spillLevelTime(timeToPlayData) {
-		console.log(timeToPlayData);
-	$('.kuleHolder').show();
+	$('.birdsContainer').show();
 	GameStop = false;
 	StopAndRemoveBirds = [];
 	numberOfBirds = timeToPlayData[1]
@@ -33,8 +24,7 @@ function spillLevelTime(timeToPlayData) {
 	lastplayedTime	= timer;
 	countdownOver = false;
 	counter = 0;
-	$(".poeng").html(counter+"/"+numberOfBirds);
-	$(".poeng").css("width",""+(sideBredde)+"px");
+	$(".points").html(counter+"/"+numberOfBirds);
 	birdnumber = 0;
 	killedWrongBird = false;
 	setSpeedLevelTimeGame();
@@ -55,12 +45,12 @@ function spillLevelTime(timeToPlayData) {
 var numberOfBirdsToKill; 
 var ms, min, sec, ms2;
 
-
 //........................................................................................Countdown to start............................................................................
 
 var numberOfBirdsOrTimeValue;
 
 function countDownToStartLevelTimeGame(data){
+	$('.points').hide();
 	$('.countDownToStart').show();
 	$('.countDownToStart').html("3");
 	$('.timer').css("color","white");
@@ -77,9 +67,8 @@ function countDownToStartLevelTimeGame(data){
 	countdownToStart.addEventListener('targetAchieved', function (e) {
 		$('.countDownToStart').hide();
 		$('.spillHolder').show();
-		$('.poeng').show();
+		$('.points').show();
 		spillLevelTime(data);
-
 	});
 }
 
@@ -105,23 +94,23 @@ function gameTimerLevelTimeGame(numberOfBirdsOrTime) {
 		GameStop = true;
 		gameFlashLevelTimeGame("Lost");
 		checkIfSoundAndVibrationLevelTimeGame("failed", 200);
+		$(".retryTimeLevel, .exitTimeLevel").hide();
+		$(".spillHolder").css("background-color", "rgba(0,0,0,0.2");
 		setTimeout(function() {
 			clearTimeoutsLevelTimeGame();	
 		    lostHtmlLevelTimeGame();
 		},850);		
 
 	});
-
 }
-
 
 //........................................................................................SetSpeed............................................................................
 
 function setSpeedLevelTimeGame(){
-	speed = 850;
+	speed = 1200;
 	checkIfLostSpeed = speed + 1;
-	removeBirdSpeed = speed + 50;
-	fallSpeed = speed+300;
+	fallSpeed = 1200;
+	removeBirdSpeed = speed + fallSpeed;
 }
 
 //........................................................................................CreateBird............................................................................
@@ -137,43 +126,37 @@ function createBirdLevelTimeGame() {
 		dir = dir - (dir*2);
 	}
 
-	var birdLeftOrRightGif;
-	var marginLeft;
-    if (random>=0.5){
-    	leftOrRight = 2;
-    	birdLeftOrRightGif = "2";
-    	marginLeft = -20;
+	var leftOrRight;
+	var leftRightString;
+	if (random >= 0.5) {
+		leftOrRight = 2;
+		leftRightString = "right";
+
 	} else {
 		leftOrRight = 1;
-    	birdLeftOrRightGif = "";
-    	marginLeft = 20;
+		leftRightString = "left";
 	}
 
+	var bird = "<div id=" + birdnumber + " " +
+		"class='" + leftOrRight + " bird levelTimeGameBird normalBird'>" +
+		"<div class='" + leftRightString + "Bird image'></div> " +
+		"</div>";
+	$(".birdsContainer").append(bird);
 
-	bird = "<div id="+birdnumber+"  class = '"+leftOrRight+" kule levelTimeGameBird'></div>";
-	$(".kuleHolder").append(bird);	
+	var birdWidth = $(".bird").width();
 
-	$("#"+birdnumber+"").css("width",""+birdSize+"px");
-	$("#"+birdnumber+"").css("height",""+(birdSize*0.65)+"px");
-    $("#"+birdnumber+"").html("<div class='birdImageHolder' style='width:"+kuleBirdWidth+"%; position:relative; left: "+marginLeft+"px; height:"+kuleBirdHeight+"%; margin-top:"+kuleBirdMarginTop+"%; float:right;'> <img style='height:100%; width:100%;' src='./pics/gameBird"+birdLeftOrRightGif+".gif'> </div>");
-
-    var kuleB = $(".kule").width();
-    var spillBredde = containerBredde;
-
-    if(leftOrRight == 1) {
-		$("#"+birdnumber+"").css({
-			"left" : "-"+kuleB+"px",
-			"top" : ""+calHeight+"%",
-			"z-index" : "1000",
+	if (leftOrRight == 1) {
+		$("#" + birdnumber).css({
+			"left": "-" + birdWidth + "px",
+			"top": "" + calHeight + "%"
 		});
-    }
-    else {
-		$("#"+birdnumber+"").css({
-			"left" : ""+spillBredde+"px",
-			"top" : ""+calHeight+"%",
-			"z-index" : "1000",
+	}
+	else {
+		$("#" + birdnumber).css({
+			"left": "" + $('.container').width() + "px",
+			"top": "" + calHeight + "%"
 		});
-    }
+	}
 
 	var temporaryBirdNumber = birdnumber;
 	StopAndRemoveBirds.push(setTimeout(function(){
@@ -189,18 +172,16 @@ function createBirdLevelTimeGame() {
 //........................................................................................gamePlay..............................................................................................
 
 function gameplayLevelTimeGame(nr, lr, dir){
-	var birdWidth = $(".kule").width();
-	var spillBredde = sideBredde + birdWidth;
-	$(".birdImageHolder").css("z-index","-1");
+	var birdWidth = $(".bird").width();
+	var transformWidth = $('.container').width() + $(".bird").width() + 20;
 
-	if(lr == 1){
-		$("#"+nr+"").css("left","0%");
-		$("#"+nr+"").css("-webkit-transition","all "+speed+"ms linear");
-		$("#"+nr+"").css("-webkit-transform","translate("+((spillBredde-birdWidth)+20)+"px, "+dir+"%)");
+	if (lr == 1) {
+		document.getElementById(nr).style.transitionDuration = speed + "ms";
+		document.getElementById(nr).style.transform = "translate(" + (transformWidth) + "px, " + dir + "%)";
 	}
 	else {
-		$("#"+nr+"").css("-webkit-transition","all "+speed+"ms linear");
-		$("#"+nr+"").css("-webkit-transform","translate(-"+(spillBredde+20)+"px, "+dir+"%)");
+		document.getElementById(nr).style.transitionDuration = speed + "ms";
+		document.getElementById(nr).style.transform = "translate(-" + (transformWidth) + "px, " + dir + "%)";
 	}
 }
 
@@ -234,7 +215,7 @@ $(document).on('touchstart ', '.levelTimeGameBird', function(){
 			createBirdLevelTimeGame();
         }, 150));	
 
-		$(".poeng").html(counter+"/"+numberOfBirds);
+		$(".points").html(counter+"/"+numberOfBirds);
 		if($(this).hasClass("1")) {
 			val = 1;
 			$(this).attr('class', '1 shot timeGameBird');
@@ -250,9 +231,11 @@ $(document).on('touchstart ', '.levelTimeGameBird', function(){
 			level++;
 			gameFlashLevelTimeGame("Won");
 			checkIfSoundAndVibrationLevelTimeGame("complete", 200);
+			$(".retryTimeLevel, .exitTimeLevel").hide();
+			$(".spillHolder").css("background-color", "rgba(0,0,0,0.2");
 			setTimeout(function() {
 				clearTimeoutsLevelTimeGame();
-				var checkIfRecord = amplifyStorageLevel(level);
+				var checkIfRecord = levelModeLocalStorage(level);
 				completeLevelTimeHtml();
 			}, 800);	
 		}
@@ -264,33 +247,33 @@ $(document).on('touchstart ', '.levelTimeGameBird', function(){
 //........................................................................................Bird fall..........................................................................................
 
 function fallLevelTimeGame(id, leftright, bird){
-	$("#"+id+"").className = "dead";
-	var birdDistanceToTop = $("#"+id+"").offset().top;
-	var birdFall = container - birdDistanceToTop;
-	var lengthin = $("#"+id+"").position();
 
-	$("#"+id+"").css({
+	var birdDistanceToTop = $("#" + id + "").offset().top;
+	var birdFall = $(window).height() - birdDistanceToTop;
+	var percentScreenFall = 1 - birdDistanceToTop / $(window).height();
+
+	$("#" + id).css({
 		"-webkit-transition": "all 0ms linear",
 		"-webkit-transform": "translate3d(0px, 0px, 0px)",
-		"-webkit-transition": "all "+(removeBirdSpeed*0.8)+"ms linear",
-		"height": "0%",
-		"width": "0%",
-		"top":""+container+"px"
+		"-webkit-transition": "all " + fallSpeed * percentScreenFall + "ms linear",
+		"height": $("#" + id).width() * 0.7 + "px",
+		"width": $("#" + id).height() * 0.7 + "px",
+		"top": "100%"
 	});
 
-	if(leftright === 1){
-    	$("#"+id+"").html("<img style='height:100%; width:100%;' src='./pics/dead1.gif'>");
-    	$("#"+id+"").css("-webkit-transform","translate3d(400px, 0px, 0px)");
+	if (leftright === 1) {
+		$("#" + id).html("<div class='spinLeft deadBirdLeft'></div>");
+		$("#" + id).css("-webkit-transform", "translate3d(400px, 0px, 0px)");
 	}
 	else {
-    	$("#"+id+"").html("<img style='height:100%; width:100%;' src='./pics/dead2.gif'>");
-    	$("#"+id+"").css("-webkit-transform","translate3d(-400px, 0px, 0px)");
+		$("#" + id).html("<div class='spinRight deadBirdRight'></div>");
+		$("#" + id).css("-webkit-transform", "translate3d(-400px, 0px, 0px)");
 	}
 
-	if(bird == 1) {
-        removeBirdTimeout.push(window.setTimeout(function(){
+	if (bird == 1) {
+		removeBirdTimeout.push(window.setTimeout(function () {
 			removeBirdLevelGame(id);
-        }, fallSpeed));
+		}, fallSpeed));
 	}
 }
 
@@ -336,21 +319,15 @@ function gameFlashLevelTimeGame(data) {
 	$(".exitTimeLevel, .retryTimeLevel").hide();
 	$('.timer').empty();
 	$('.timer').hide();
+	$(".birdsContainer").hide();
 	if(data === "Won") {
-		$(".levelCompleteFlash").css("font-size",""+(sideHoyde/24)+"px");
 		$(".levelNumber").html((level-1));
-		$(".completeFlash, .nextLevelFlash").css("width",""+((sideHoyde/3.9)*2)+"px");
 		var playWidth = $(".completeFlash").width();
-		$(".levelCompleteFlash").css("font-size",""+(sideHoyde/24)+"px");
-		$(".completeFlash, .nextLevelFlash").css("left",""+((sideBredde-playWidth)/2)+"px");
-
 		if(levels.length >= level) {		
 			$(".nxt").html("Next Level");
-			$(".nxt").css("font-size",""+(sideHoyde/19)+"px");
 		}
 		else {
 			$(".nxt").html("More to come!");
-			$(".nxt").css("font-size",""+(sideHoyde/22)+"px");
 		}
 		if(data === "Won") {
 			$(".gameWonFlash").show();
@@ -380,16 +357,9 @@ function gameFlashLevelTimeGame(data) {
 			}, 800);	
 		} 
 	} else {
-		$(".levelFailedHolder").css("font-size",""+(sideHoyde/24)+"px");
 		$(".levelFailedNumber").html((level));	
-		$(".taptFlash, .playAgainFlash").css("width",""+((sideHoyde/3.9)*2)+"px");
 		var playWidth = $(".taptFlash").width();
-		$(".levelFailedHolder").css("font-size",""+(sideHoyde/24)+"px");
-		$(".retry").css("font-size",""+(sideHoyde/19)+"px");
-		$(".taptFlash, .playAgainFlash").css("left",""+((sideBredde-playWidth)/2)+"px");
-
 		$(".gameLostFlash").show();
-		
 		setTimeout(function() {
 			$(".taptFlash").css({
 				"top": "25%"
@@ -415,46 +385,28 @@ function gameFlashLevelTimeGame(data) {
 	}
 }
 
-
 function lostHtmlLevelTimeGame() {
+	$(".spillHolder").css("background-color", "rgba(0,0,0,0");
+	$(".birdsContainer").show();
 	$(".exitTimeLevel, .retryTimeLevel").hide();
-	$(".kuleHolder").empty();
+	$(".birdsContainer").empty();
 	$(".lostPoint").html(counter+"/" +numberOfBirds);
-	$(".taptLevel").html("<img style='width:96%; position:absolute; left:2%;' src='./pics/banner.gif'>"+
-							"<div class='levelFailedHolder'> Level "+level+"<br> Failed! </div>");
-	$(".taptLevel, .playAgainLevel, .lostPoint").css("width",""+(sideBredde)+"px");
-	$(".levelFailedHolder").css("font-size",""+playFont+"px");
-	$(".tapt, .playAgain").css("width",""+(sideBredde)+"px");
-	var sideHoyde = $(window).height();
-	$(".taptLevel, .playAgainLevel").css("width",""+((sideHoyde/3.9)*2)+"px");
-	var playWidth = $(".taptLevel").width();
-	$(".levelFailedHolder").css("font-size",""+(sideHoyde/24)+"px");
-	$(".retry").css("font-size",""+(sideHoyde/19)+"px");
-	$(".taptLevel, .playAgainLevel").css("left",""+((sideBredde-playWidth)/2)+"px");
 	$('.spillHolder').hide();
 	$('.taptHolderLevel').show();
 }
 
 function completeLevelTimeHtml(){
+	$(".spillHolder").css("background-color", "rgba(0,0,0,0");
 	$(".exitTimeLevel, .retryTimeLevel").hide();
 	$(".lostPoint").html(counter+"/"+numberOfBirds);
-	$(".lostPoint").css("width",""+(sideBredde)+"px");
-	var sideHoyde = $(window).height();
-	$(".complete").html("<img style='width:96%; margin-left:2%; margin-right:2%; position:absolute; top:0%; left:0%;' src='./pics/banner.gif'>"+
-	"<div class='levelCompleteHolder'> Level "+(level-1)+"<br> complete! </div>");	
-	$(".complete, .nextLevel").css("width",""+((sideHoyde/3.9)*2)+"px");
-	var playWidth = $(".complete").width();
-	$(".levelCompleteHolder").css("font-size",""+(sideHoyde/24)+"px");
 	if(levels.length >= level) {		
 		$(".nxt").html("Next Level");
-		$(".nxt").css("font-size",""+(sideHoyde/19)+"px");
 	}
 	else {
 		$(".nxt").html("More to come!");
-		$(".nxt").css("font-size",""+(sideHoyde/22)+"px");
 	}
-	$(".complete, .nextLevel").css("left",""+((sideBredde-playWidth)/2)+"px");
 	$('.spillHolder').hide();
-	$(".kuleHolder").empty();
+	$(".birdsContainer").empty();
+	$(".birdsContainer").show();
 	$('.completeLevel').show();	
 }

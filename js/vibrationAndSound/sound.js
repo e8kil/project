@@ -1,13 +1,13 @@
 $(document).on("click", ".soundOnOFF", function() {
-	vibrationclick();
+
 	if(sound == 1) {
-		$(".sound").html("<img class='soundOnOFF' src='./pics/soundOff.png'>");
+		$(".sound").html("<img class='soundOnOFF' src='./pics/icons/soundOff.svg'>");
 		sound = 2;
-		amplifyStorageSound(sound);
+		soundLocalStorage(sound);
 	}
 	else {
-		$(".sound").html("<img class='soundOnOFF' src='./pics/soundOn.png'>");
+		$(".sound").html("<img class='soundOnOFF' src='./pics/icons/soundOn.svg'>");
 		sound = 1;
-		amplifyStorageSound(sound);
+		soundLocalStorage(sound);
 	}
 });

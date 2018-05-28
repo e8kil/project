@@ -1,0 +1,173 @@
+
+.birdsContainer {
+	position: absolute;
+	top:10%;
+	height: 90%;
+	width:100%;
+	overflow: hidden;	
+}
+
+.bird {
+	position: absolute;
+	background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+	-webkit-transform-style: preserve-3d;
+    padding:5px;
+    height:6.4vh;
+    width:10vh;
+    -webkit-transition: left linear;
+    -webkit-transition: top linear;
+    -webkit-transition: transform linear;
+    z-index:1000;
+    will-change: transform;
+}
+
+.killx2Bird {
+    height: 7.1vh;
+}
+
+.smallBird {
+    height:4.8vh;
+}
+
+.normalBird .image, .noKillBird .image, .killx2Bird .image {
+	position:relative; 
+	background-size: 100%;
+	height:100%;
+  width:100%;
+  background-repeat: no-repeat
+}
+
+.smallBird {
+  width:70%;
+}
+
+.deadBirdLeft {
+  height:100%; 
+  width:100%;
+  background-image: url("../pics/birds/deadbird-left.svg");
+  background-size:100%;
+  background-repeat: no-repeat;  
+}
+.deadBirdRight {
+  height:100%; 
+  width:100%;
+  background-image: url("../pics/birds/deadbird-right.svg");
+  background-size:100%;
+  background-repeat: no-repeat;
+}
+
+.normalbirdsContainer {
+    height: 30px;
+    width: 50px;
+}
+
+.leftBird {
+	left:20px;
+	float:left;
+}
+
+.rightBird {
+	left: -20px;
+	float:right;
+	transform: scaleX(-1);
+}
+
+.normalBird .image {
+	animation: normalBird 0.35s infinite;
+}
+
+@keyframes normalBird {
+  0% {
+   background-image: url('../pics/birds/normal_bird.svg');;
+  }
+  100% {
+    background-image: url('../pics/birds/normal_bird2.svg');
+  }
+}
+
+.noKillBird .image {
+	animation: noKillBird 0.35s infinite;
+}
+
+@keyframes noKillBird {
+  0% {
+   background-image: url('../pics/birds/protected_bird.svg');;
+  }
+  100% {
+    background-image: url('../pics/birds/protected_bird2.svg');
+  }
+}
+
+.killx2Bird .image {
+	animation: killx2Bird 0.2s infinite;
+}
+
+@keyframes killx2Bird {
+  0% {
+   background-image: url('../pics/birds/double_kill_bird.svg');;
+  }
+  100% {
+    background-image: url('../pics/birds/double_kill_bird2.svg');
+  }
+}
+
+.levelsBird {
+  width:15%;
+  left:50%;
+  top: 55%;
+  transform:translate(-50%, 0%);
+}
+
+.levelsBird .image {
+  left:0px;
+}
+
+.informationBirdContainer {
+  display: block;
+  left:50%;
+  position: absolute;
+  transform: translate(-50%, 0%);
+  top:25%;
+  margin-left: 0px;
+  width:70px;
+}
+
+.informationBirdContainer .bird .image {
+  left:0px;
+}
+
+.spinLeft {
+	animation: spinLeft 1s infinite;
+	animation-timing-function: linear; 
+}
+
+@keyframes spinLeft {
+    0% {
+      transform:rotate(0deg);
+    }
+    50% {
+    }      
+    100% {
+      transform:rotate(-360deg);
+    }  
+}
+
+.spinRight {
+	animation: spinRight 1s infinite;
+  animation-timing-function: linear; 
+  
+}
+
+@keyframes spinRight {
+    0% {
+      transform:rotate(0deg);
+    }
+    50% {
+      transform:rotate(180deg);
+    }      
+    100% {
+      transform:rotate(360deg);
+    }  
+}

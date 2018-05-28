@@ -27,43 +27,38 @@ var	bird;
 
 function introCreateBird() {
 
-	bird = "<div id='introBird'  class = '1 col-lg-12 kule'>"+
-			"</div>"	
-			$(".kuleHolder").append(bird);	
-	$("#introBird").html("<img style='height:100%; width:100%;' src='./pics/gameBird.gif'>");
+	bird = "<div id='introBird' style='position:fixed;'"+
+		"class='1 bird normalBird'>" +
+		"<div class='leftBird image'></div> " +
+		"</div>";
 
-	$("#introBird").css("width","18%");
-	var birdWidth = $("#introBird").width();
-	$("#introBird").css("height",""+(birdWidth*0.6)+"px");
-	$("#introDeadBird").css("height",""+(birdWidth*0.6)+"px");
-	var kuleB = $(".kule").width();
-			$(".kule").css({
-				"left" : "-"+kuleB+"px",
-				"top" : "10%"
+	$(".birdsContainer").append(bird);
+
+	var birdWidth = $(".bird").width();
+	$(".bird").css({
+		"left": "-"+(birdWidth+20)+"px",
+		"top": "20%",
+		"z-index": "1000",
 	});
+
 	window.setTimeout("addClass()", speed);
 	introGameplay();
 }
 
 //........................................................................................gamePlay..............................................................................................
 
-var containerBredde = $(".container").width();
-
 function introGameplay(){
 	window.setTimeout("information()", speed);
-
-	$("#startGame").css("font-size",""+tapt+"px");
-	var kuleB = $(".kule").width();
-	var spillBredde = (containerBredde + kuleB)/2;
-	$("#introBird").css("z-index","201");
-	//$(".kuleHolder").css("left",""+containerLeft.left+"px");
+	var birdWidth = $(".bird").width();
+	var spillBredde = ($('.container').width() + birdWidth)/2;
 	$("#introBird").css("-webkit-transition","all "+speed+"ms linear");
 	$("#introBird").css("-webkit-transform","translate("+spillBredde+"px, 0px)");
 }
 
 //........................................................................................Click kule..........................................................................................
 
-$(document).on('touchstart mousedown', '.ready', function(){
+$(document).on('touchstart', '.ready', function(){
+
 	if(game == 1) {
 		$("#information").hide();
 	}
@@ -71,20 +66,11 @@ $(document).on('touchstart mousedown', '.ready', function(){
 		$("#informationGame1").hide();		
 	}
 
-
 	var id = $(this).attr("id");
 	var className = $("#introBird").attr('class');
-	$("#introBird").attr('class', '1 col-lg-12 shot');
-
-	//removeBird(id);
+	$("#introBird").attr('class', '1 shot');
 	introFall(id);
-	if(game == 1) {
-		window.setTimeout("information2()", 700); 
-	}
-	else {
-		window.setTimeout("information2()", 700); 
-	}
-
+	window.setTimeout("information2()", 700); 
 });
 
 //........................................................................................Bird fall..........................................................................................
@@ -93,7 +79,7 @@ var container = $(window).height();
 function introFall(id){
 	var birdDistanceToTop = $("#introBird").offset().top;
 	var birdFall = container - birdDistanceToTop;
-    $("#introBird").html("<img style='height:125%; width:125%;' src='./pics/dead1.gif'>");
+	$("#introBird").html("<img class='spinLeft' style='height:125%; width:125%;' src='./pics/birds/deadbird-left.svg'>");
     $("#introBird").css("-webkit-transition","all "+removeBirdSpeed+"ms linear");
 	$("#introBird").css("-webkit-transform","translate(600px, "+container+"px)");	
 	$("#introBird").css("height","0%");
@@ -118,6 +104,7 @@ function information() {
 	}	
 }
 function information2(){
+	$(".spillHolder").hide();
 	if(game == 1){
 		$("#information2").show();
 	}
@@ -137,7 +124,8 @@ $(document).on("click", "#startGame", function() {
 		$("#informationGame2").hide();
 		window.setTimeout("spillFree()", 500);	
 	}
-
+	$(".spillHolder").show();
+	$('.points').show();
 });
 
 function addClass() {

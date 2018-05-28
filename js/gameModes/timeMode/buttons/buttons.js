@@ -1,7 +1,7 @@
 //........................................................................................Play agian..........................................................................................
 
 $(document).on("click", "#playAgainTime", function() {
-	vibrationclick();
+	
 	counter = 0;
 	birdnumber = 0;
 	killedWrongBird = "false";
@@ -11,7 +11,7 @@ $(document).on("click", "#playAgainTime", function() {
 		clearTimeout(timeouts[i]);
 	}
 
-	$(".poeng").html(""+counter+"");
+	$(".points").html(counter);
 	$('.TimeSelectorDone').hide();
 	$('.countDownToStart').show();
 	countdownToStartNumber	= 3;
@@ -19,7 +19,7 @@ $(document).on("click", "#playAgainTime", function() {
 });
 
 $(document).on("click", "#playAgainTime2", function() {
-	vibrationclick();
+	
 	counter = 0;
 	birdnumber = 0;
 	killedWrongBird = "false";
@@ -40,27 +40,27 @@ $(document).on("click", "#playAgainTime2", function() {
 //........................................................................................Retry..........................................................................................
 
 $(document).on("click", ".retryTime", function() {
-	vibrationclick();
+	
 	GameStop = "true";
 	counter = 0;
 	birdnumber = 0;
 
 	clearTimeoutsTimeGame();
 
-	$(".kuleHolder").empty();
+	$(".birdsContainer").empty();
 	countdownToStartNumber = 3;
 
 	$('.spillHolder').hide();
-	$('.poeng').hide();
+	$('.points').hide();
 	$('.countDown').hide();
 
 	if(game == 3) {
-		$(".poeng").html(""+counter+"");
+		$(".points").html(counter);
 		$('.TimeSelectorDone').hide();
 		countDownToStartTimeGame(lastplayedTime, 1);
 	}
 	else if(game == 4) {
-		$(".poeng").html(""+counter+"/"+numberOfBirdsToKill+"");
+		$(".points").html(counter+"/"+numberOfBirdsToKill);
 		$('.TimeSelectorDone2').hide();
 		countDownToStartTimeGame(numberOfBirdsToKill, 2);
 	}
@@ -72,27 +72,27 @@ $(document).on("click", ".retryTime", function() {
 //........................................................................................ExitTimePlay..........................................................................................
 
 $(document).on("click", ".exitTime", function() {
-	vibrationclick();
+	
 	GameStop = "true";
 	counter = 0;
 	birdnumber = 0;
 
 	clearTimeoutsTimeGame();
 
-	$(".kuleHolder").empty();
+	$(".birdsContainer").empty();
 
 	if(game == 3) {
 		var levelScore15 = checkLocalStorageTime15();
 		var levelScore30 = checkLocalStorageTime30();
 		var levelScore60 = checkLocalStorageTime60();
-		$('.spillHolder, .countDown, .exitTime, .retryTime, .poeng, .TimeSelectorDone').hide();
+		$('.spillHolder, .countDown, .exitTime, .retryTime, .points, .TimeSelectorDone').hide();
 		$('.TimeSelector').show();
 	}
 	else if(game == 4) {
 		var levelScore10Birds = checkLocalStorageTime10Birds();
 		var levelScore30Birds = checkLocalStorageTime30Birds();
 		var levelScore50Birds = checkLocalStorageTime50Birds();
-		$('.spillHolder, .countDown, .exitTime, .retryTime, .poeng, .TimeSelectorDone2').hide();
+		$('.spillHolder, .countDown, .exitTime, .retryTime, .points, .TimeSelectorDone2').hide();
 		$('.TimeSelector2').show();
 	}
 	
@@ -101,45 +101,44 @@ $(document).on("click", ".exitTime", function() {
 //........................................................................................Back..........................................................................................
 
 $(document).on("click", ".backTimeSelector", function() {
-	vibrationclick();
+	
 	counter = 0;
-	$(".poeng").html(""+counter+"");
+	$(".points").html(counter);
 	$('.TimeSelector').hide();
 	$('.gameTreeAndFour').show();
 });
 $(document).on("click", ".backTimeSelector2", function() {
-	vibrationclick();
+	
 	counter = 0;
-	$(".poeng").html(""+counter+"");
+	$(".points").html(counter);
 	$('.TimeSelector2').hide();
 	$('.gameTreeAndFour').show();
 });
 
 $(document).on("click", ".backTimeSelectorDone", function() {
-	vibrationclick();
+	
 	counter = 0;
 	var levelScore15 = checkLocalStorageTime15();
 	var levelScore30 = checkLocalStorageTime30();
 	var levelScore60 = checkLocalStorageTime60();
-	$(".poeng").html(""+counter+"");
+	$(".points").html(counter);
 	$('.TimeSelectorDone').hide();
 	$('.TimeSelector').show();
 });
 
 $(document).on("click", ".backTimeSelectorDone2", function() {
-	vibrationclick();
+	
 	counter = 0;
 	var levelScore10Birds = checkLocalStorageTime10Birds();
 	var levelScore30Birds = checkLocalStorageTime30Birds();
 	var levelScore50Birds = checkLocalStorageTime50Birds();
-	$(".poeng").html(""+counter+"");
+	$(".points").html(counter);
 	$('.TimeSelectorDone2').hide();
 	$('.TimeSelector2').show();
 });
 
 $(document).on("click", ".Game3and4Back", function() {
-	vibrationclick();
-	fremsideKule();
+	
 	$('.gameTreeAndFour').hide();
 	$('.info').show();
 });
@@ -147,7 +146,7 @@ $(document).on("click", ".Game3and4Back", function() {
 //.......................................................................................continue play..........................................................................................
 
 $(document).on("click", "#continuePlay4", function() {
-	vibrationclick();
+	
 	var game1 = 1;
 	$('#information6').hide();
 	$('.countDownToStart').show();
@@ -156,7 +155,7 @@ $(document).on("click", "#continuePlay4", function() {
 });
 
 $(document).on("click", "#continuePlay5", function() {
-	vibrationclick();
+	
 	$('#information7').hide();
 
 	var game2 = 2;
@@ -172,18 +171,15 @@ $(document).on("click", "#continuePlay5", function() {
 
 
 $("#spill3").click(function(){
-	vibrationclick();
+	
 	fremsideVenstreHoyere = 2;
-	$(".fremsideKuleBilde").css("transform","scaleX(1)");
-	$(".fremsideKule").attr('style','left: 0px', 'height: '+kuleFremsidebredde+'');
-	clearTimeout(fremsideNedtelling);
 	$('.info').hide();
     $('.gameTreeAndFour').show();
 });
 
 
 $(".game3").click(function(){
-	vibrationclick();
+	
 	var levelScore15 = checkLocalStorageTime15();
 	var levelScore30 = checkLocalStorageTime30();
 	var levelScore60 = checkLocalStorageTime60();
@@ -193,11 +189,8 @@ $(".game3").click(function(){
 
 
 $(".game4").click(function(){
-	vibrationclick();
+	
 	fremsideVenstreHoyere = 2;
-	$(".fremsideKuleBilde").css("transform","scaleX(1)");
-	$(".fremsideKule").attr('style','left: 0px', 'height: '+kuleFremsidebredde+'');
-	clearTimeout(fremsideNedtelling);
 	var levelScore10Birds = checkLocalStorageTime10Birds();
 	var levelScore30Birds = checkLocalStorageTime30Birds();
 	var levelScore50Birds = checkLocalStorageTime50Birds();
@@ -208,7 +201,7 @@ $(".game4").click(function(){
 
 var time;
 $("#time1, #time2, #time3").click(function(){
-	vibrationclick();
+	
 	$('.TimeSelector').hide();
 
 	var id = $(this).attr("id");
@@ -248,7 +241,7 @@ $("#time1, #time2, #time3").click(function(){
 
 var numbOfBirds;
 $("#time4, #time5, #time6").click(function(){
-	vibrationclick();
+	
 	var levelScore10Birds = checkLocalStorageTime10Birds();
 	var levelScore30Birds = checkLocalStorageTime30Birds();
 	var levelScore50Birds = checkLocalStorageTime50Birds();

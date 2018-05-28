@@ -3,11 +3,9 @@
 
 var pushed = 0;
 $("#spill").click(function(){
-	vibrationclick();
+	
 	var levelScore = checkLocalStorageLevel();
-	clearTimeout(fremsideNedtelling);
 	fremsideVenstreHoyere = 2;
-	$(".fremsideKule").attr('style','left: 0px', 'height: '+kuleFremsidebredde+'');
 	$('.info').hide();
 	$('.levelHolder').show();
 	createLevelHolder();	
@@ -16,10 +14,10 @@ $("#spill").click(function(){
 	}
 	else {
 		if(levelScore != levels.length) {
-			$("."+(levelScore+1)+"").get(0).scrollIntoView();			
+			$("."+(levelScore+1)).get(0).scrollIntoView();			
 		}
 		else {
-			$("."+levelScore+"").get(0).scrollIntoView();
+			$("."+levelScore).get(0).scrollIntoView();
 		}
 	}
 
@@ -28,15 +26,15 @@ $("#spill").click(function(){
 
 
 $(document).on("click", ".retryTimeLevel", function() {
-	vibrationclick();
+	
 	gameTimer.stop();
 	GameStop = "true";
 	counter = 0;
 	birdnumber = 0;
-	$(".exitTimeLevel, .retryTimeLevel, .poeng, .timer").hide();
+	$(".exitTimeLevel, .retryTimeLevel, .points, .timer").hide();
 	$('.timer').empty();
 	clearTimeoutsLevelTimeGame();
-	$(".kuleHolder").empty();
+	$(".birdsContainer").empty();
 	$(".container").css("overflow","hidden");
 	$('.taptHolderLevel').hide();
 	$('.spillHolder').show();
@@ -46,8 +44,8 @@ $(document).on("click", ".retryTimeLevel", function() {
 
 
 $(document).on("click", ".retry", function() {
-	vibrationclick();
-	$(".kuleHolder").empty();
+	
+	$(".birdsContainer").empty();
 	$(".container").css("overflow","hidden");
 	$('.taptHolderLevel').hide();
 	$('.spillHolder').show();
@@ -57,16 +55,16 @@ $(document).on("click", ".retry", function() {
 //........................................................................................Back in game..........................................................................................
 
 $(document).on("click", ".exitTimeLevel", function() {
-	vibrationclick();
+	
 	gameTimer.stop();
 	GameStop = "true";
 	counter = 0;
 	birdnumber = 0;
-	$(".exitTimeLevel, .retryTimeLevel, .poeng, .timer").hide();
+	$(".exitTimeLevel, .retryTimeLevel, .points, .timer").hide();
 	$('.timer').empty();
 	clearTimeoutsLevelTimeGame();
-	$(".kuleHolder").empty();
-	$('.kuleHolder').hide();
+	$(".birdsContainer").empty();
+	$('.birdsContainer').hide();
 	$('.levelHolder').show();
 	createLevelHolder();	
 	if(currentLevel == 1) {
@@ -75,47 +73,46 @@ $(document).on("click", ".exitTimeLevel", function() {
 	else {
 		var scrollTo = parseInt(currentLevel);
 		if(currentLevel != levels.length) {
-			$("."+(scrollTo+1)+"").get(0).scrollIntoView();				
+			$("."+(scrollTo+1)).get(0).scrollIntoView();				
 		}
 		else {
-			$("."+scrollTo+"").get(0).scrollIntoView();
+			$("."+scrollTo).get(0).scrollIntoView();
 		}
 
 	}
 });
 
-
 //........................................................................................Back..........................................................................................
 
 $(document).on("click", ".backLevel", function() {
-	vibrationclick();
+	
 	counter = 0;
-	$(".poeng").html(""+counter+"");
+	$(".points").hide();
 	$('.taptHolderLevel').hide();
 	$('.levelHolder').show();
-	createLevelHolder();
-	console.log(currentLevel);	
+	createLevelHolder();	
 	if(currentLevel == 1) {
 		$(".1").get(0).scrollIntoView();
 	}
 	else {
 		var scrollTo = parseInt(currentLevel);
 		if(currentLevel != levels.length) {
-			$("."+(scrollTo+1)+"").get(0).scrollIntoView();				
+			$("."+(scrollTo+1)).get(0).scrollIntoView();				
 		}
 		else {
-			$("."+(scrollTo)+"").get(0).scrollIntoView();
+			$("."+(scrollTo)).get(0).scrollIntoView();
 		}
 
 	}
 });
 
 $(document).on("click", ".backLevel2", function() {
-	vibrationclick();
+	
+	$(".points").hide();
 	counter = 0;
 	var levelScore = checkLocalStorageLevel();
 	var levelValue = parseInt(level);
-	$(".poeng").html(""+counter+"");
+	$(".points").html(counter);
 	$('.completeLevel').hide();
 	$('.levelHolder').show();
 	createLevelHolder();	
@@ -125,24 +122,22 @@ $(document).on("click", ".backLevel2", function() {
 	else {
 		var scrollTo = parseInt(currentLevel);
 		if(currentLevel != levels.length) {
-			$("."+(scrollTo+1)+"").get(0).scrollIntoView();				
+			$("."+(scrollTo+1)).get(0).scrollIntoView();				
 		}
 		else {
-			$("."+(scrollTo)+"").get(0).scrollIntoView();
+			$("."+(scrollTo)).get(0).scrollIntoView();
 		}
 	}
 
 	counter = 0;
-	$(".poeng").html(""+counter+"");
-	fremsideKule();
+	$(".points").html(counter);
 	$('.completeLevel').hide();
 	$('.levelHolder').show();
 });
 
 $(document).on("click", ".backLevel3", function() {
-	vibrationclick();
+	
 	$(".container").css("overflow-y","hidden");
-	fremsideKule();
 	$(".levels").empty();
 	$('.levelHolder').hide();
 	$('.info').show();
@@ -152,7 +147,7 @@ $(document).on("click", ".backLevel3", function() {
 
 $(document).on("click", ".nxt", function() {
 	currentLevel++;
-	vibrationclick();
+	
 	if(currentLevel == noneKillNumber) {
 		$('.completeLevel').hide();
 		$('#information3').show();
@@ -173,19 +168,17 @@ $(document).on("click", ".nxt", function() {
 		$("#information9").show();
 	}
 	else {
-		$(".kuleHolder").empty();
+		$(".birdsContainer").empty();
 		$(".container").css("overflow","hidden");
 		$('.completeLevel').hide();
 		$('.spillHolder').show();
 		spillLevelLevelGame(levels[(currentLevel-1)]);
 	}
-
 });
 
 //.......................................................................................continue play..........................................................................................
 
 $(document).on("click", "#continuePlay", function() {
-	vibrationclick();
 	$(".container").css("overflow","hidden");
 	$('#information3').hide();
 	spillLevelLevelGame(levels[(noneKillNumber-1)]);
@@ -193,21 +186,18 @@ $(document).on("click", "#continuePlay", function() {
 
 
 $(document).on("click", "#continuePlay2", function() {
-	vibrationclick();
 	$(".container").css("overflow","hidden");
 	$('#information4').hide();
 	spillLevelLevelGame(levels[(doubleKillNumber-1)]);
 });
 
 $(document).on("click", "#continuePlay3", function() {
-	vibrationclick();
 	$(".container").css("overflow","hidden");
 	$('#information5').hide();
 	spillLevelLevelGame(levels[(smallBirdNumber-1)]);
 });
 
 $(document).on("click", "#continuePlay6", function() {
-	console.log("click");
 	$("#information8").hide();
 	timeLevelTimeGame = levels[startTimeGame-1][6];
 	$(".numberOfBirdsToKill").html(timeLevelTimeGame[1]);
@@ -215,11 +205,8 @@ $(document).on("click", "#continuePlay6", function() {
 	$("#information9").show();
 });
 
-$(document).on("click", "#continuePlay7", function() {
-
-	vibrationclick();
+$(document).on("click", "#continuePlay7", function() {	
 	$(".container").css("overflow","hidden");
 	$('#information9').hide();
 	spillLevelLevelGame(levels[(currentLevel-1)]);
-
 });

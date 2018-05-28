@@ -1,24 +1,16 @@
-
 //global variables
 var birdnumber;
-var leftOrRight;
-var	bird;
 var timeouts = [];
+var removeBirdTimeout = [];
 var	checkIfLostSpeed;
 var	removeBirdSpeed;
 var fallSpeed;
-var sideHoyde = $(window).height();
-var birdSize = sideHoyde/9;
-var val;
-var container = $(window).height();
-var removeBirdTimeout = [];
 
 //........................................................................................SpillFree............................................................................
 
 var counter;
 function spillFree() {
-	$(".poeng").html(0);
-	$(".poeng").css("width",""+(sideBredde)+"px");
+	$(".points").html(0);
 	birdnumber = 0;
 	counter = 0;
 	setSpeedFreeGame();
@@ -30,8 +22,8 @@ function spillFree() {
 function setSpeedFreeGame(){
 	speed = 850;
 	checkIfLostSpeed = speed + 1;
-	removeBirdSpeed = speed + 50;
-	fallSpeed = speed+300;
+	fallSpeed = 1200;
+	removeBirdSpeed = speed + fallSpeed;
 }
 
 //........................................................................................CreateBird............................................................................
@@ -45,37 +37,37 @@ function createBirdFreeGame() {
 		dir = dir - (dir*2);
 	}
 
+	var leftOrRight;
+	var leftRightString;
     if (random>=0.5){
 		leftOrRight = 2;
+		leftRightString = "right";
+
     } else {
 		leftOrRight = 1;
+		leftRightString = "left";
     }
 
-	bird = "<div id="+birdnumber+"  class = '"+leftOrRight+" kule freeGameBird'></div>";
-	$(".kuleHolder").append(bird);	
+	var bird =  "<div id="+birdnumber+" "+
+			"class='"+leftOrRight+" bird freeGameBird normalBird'>"+
+				"<div class='"+leftRightString+"Bird image'></div> "+
+			"</div>";
 
-	$("#"+birdnumber+"").css("width",""+birdSize+"px");
-	$("#"+birdnumber+"").css("height",""+(birdSize*0.65)+"px");
 
-    if (random>=0.5){
-        $("#"+birdnumber+"").html("<div class='birdImageHolder' style='width:"+kuleBirdWidth+"%; position:relative; left:-20px; height:"+kuleBirdHeight+"%; margin-top:"+kuleBirdMarginTop+"%; float:left;'> <img style='height:100%; width:100%;' src='./pics/gameBird2.gif'> </div>");
-    } else {
-	    $("#"+birdnumber+"").html("<div class='birdImageHolder' style='width:"+kuleBirdWidth+"%; position:relative; left: 20px; height:"+kuleBirdHeight+"%; margin-top:"+kuleBirdMarginTop+"%; float:right;'> <img style='height:100%; width:100%;' src='./pics/gameBird.gif'> </div>");
-    }	
+	$(".birdsContainer").append(bird);	
 
-    var birdWidth = $(".kule").width();
-    var gameWidth = containerBredde;
+	var birdWidth = $(".bird").width();
 
     if(leftOrRight == 1) {
-		$("#"+birdnumber+"").css({
+		$("#"+birdnumber).css({
 			"left" : "-"+birdWidth+"px",
-			"top" : ""+calHeight+"%",
+			"top" : calHeight+"%",
 			"z-index" : "1000",
 		});
     } else {
-		$("#"+birdnumber+"").css({
-			"left" : ""+gameWidth+"px",
-			"top" : ""+calHeight+"%",
+		$("#"+birdnumber).css({
+			"left": "" +$('.container').width()+"px",
+			"top" : calHeight+"%",
 			"z-index" : "1000",
 		});
     }
@@ -89,18 +81,16 @@ function createBirdFreeGame() {
 //........................................................................................gamePlay..............................................................................................
 
 function gameplayFreeGame(nr, lr, dir){
-	var birdWidth = $(".kule").width();
-	var gameWidth = sideBredde + birdWidth;
-	$(".birdImageHolder").css("z-index","-1");
+	var birdWidth = $(".bird").width();
+	var transformWidth = $('.container').width() + $(".bird").width() + 20;
 
 	if(lr == 1){
-		$("#"+nr+"").css("left","0%");
-		$("#"+nr+"").css("-webkit-transition","all "+speed+"ms linear");
-		$("#"+nr+"").css("-webkit-transform","translate("+((gameWidth-birdWidth)+20)+"px, "+dir+"%)");
+		document.getElementById(nr).style.transitionDuration = speed+"ms";
+		document.getElementById(nr).style.transform = "translate(" + (transformWidth)+"px, "+dir+"%)";
 	}
 	else {
-		$("#"+nr+"").css("-webkit-transition","all "+speed+"ms linear");
-		$("#"+nr+"").css("-webkit-transform","translate(-"+(gameWidth+20)+"px, "+dir+"%)");
+		document.getElementById(nr).style.transitionDuration = speed + "ms";
+		document.getElementById(nr).style.transform = "translate(-" + (transformWidth)+"px, "+dir+"%)";
 	}
 }
 
@@ -108,13 +98,14 @@ function gameplayFreeGame(nr, lr, dir){
 
 function checkIfLostFreeGame(nr){
 	//Game Lost
-	if(!$("#"+nr+"").hasClass("shot")) {
+	if(!$("#"+nr).hasClass("shot")) {
 		//Sound and vibration
 		checkIfSoundAndVibrationFreeGame("failed", 200);
 		clearTimeoutsFreeGame();
 		removeBirdFreeGame(nr);
 		var score = counter;
-		var highScore = amplifyStorage(score);
+		var highScore = freeModeLocalStorage(score);
+		$('.points').hide();
 		gameFlashFreeGame(highScore);
 		//timeout before showing lost html
 		setTimeout(function() {
@@ -137,8 +128,7 @@ $(document).on('touchstart', '.freeGameBird', function(){
 
 	$(this).css("z-index","9");
 	// Freeplay Points
-
-	$(".poeng").html(counter);
+	$(".points").html(counter);
 	if($(this).hasClass("1")){
 		leftright = 1;
 		$(this).attr('class', 'shot');
@@ -155,38 +145,37 @@ $(document).on('touchstart', '.freeGameBird', function(){
 
 function fallFreeGame(id, leftright){
 
-	$("#"+id+"").className = "dead";
-	var birdDistanceToTop = $("#"+id+"").offset().top;
-	var birdFall = container - birdDistanceToTop;
-	var lengthin = $("#"+id+"").position();
-
-	$("#"+id+"").css({
+	var birdDistanceToTop = $("#" + id + "").offset().top;
+	var birdFall = $(window).height() - birdDistanceToTop;
+	var percentScreenFall = 1 - birdDistanceToTop / $(window).height();
+	var birdDistanceFromLeft = $("#" + id + "").offset().left + 20;
+	$("#" + id).css({
 		"-webkit-transition": "all 0ms linear",
 		"-webkit-transform": "translate3d(0px, 0px, 0px)",
-		"-webkit-transition": "all "+(removeBirdSpeed*0.8)+"ms linear",
-		"height": "0%",
-		"width": "0%",
-		"top":""+container+"px"
+		"-webkit-transition": "all " + fallSpeed * percentScreenFall + "ms linear",
+		"height": $("#" + id).width() * 0.7 + "px",
+		"width": $("#" + id).height() * 0.7 + "px",
+		"top": "100%"
 	});
 
-	if(leftright === 1){
-    	$("#"+id+"").html("<img style='height:100%; width:100%;' src='./pics/dead1.gif'>");
-    	$("#"+id+"").css("-webkit-transform","translate3d(400px, 0px, 0px)");
+	if (leftright === 1) {
+		$("#" + id).html("<div class='spinLeft deadBirdLeft'></div>");
+		$("#" + id).css("-webkit-transform", "translate3d(" + birdDistanceFromLeft + 100 +"px, 0px, 0px)");
 	}
 	else {
-    	$("#"+id+"").html("<img style='height:100%; width:100%;' src='./pics/dead2.gif'>");
-    	$("#"+id+"").css("-webkit-transform","translate3d(-400px, 0px, 0px)");
+		$("#" + id).html("<div class='spinRight deadBirdRight'></div>");
+		$("#" + id).css("-webkit-transform", "translate3d(-400px, 0px, 0px)");
 	}
 
     removeBirdTimeout.push(window.setTimeout(function(){
 		removeBirdFreeGame(id);
-    }, fallSpeed));
+	}, fallSpeed));
 }
 
 //........................................................................................Remove Bird..............................................................................................
 
 function removeBirdFreeGame(id){
-	$("#"+id+"").remove();
+	$("#"+id).remove();
 }
 
 function clearTimeoutsFreeGame() {
@@ -217,12 +206,9 @@ function checkIfSoundAndVibrationFreeGame(wonLost, vib){
 //................................................................................Game over animation..............................................................................................
 
 function gameFlashFreeGame(highscore) {
-	$('.freeGameTapt').html(counter);
-	console.log(highscore);
+	$('.freeGamelost').html(counter);
 	$('.hscore').html(highscore);
 	$('.taptHolderFlash').show();
-	$(".holder, #playAgain").css("font-size",""+(sideHoyde/24)+"px");
-
 	setTimeout(function() {
 		$(".taptFlash").css("top","25%");
 		$(".playAgainFlash").css("top","50%");
@@ -239,17 +225,10 @@ function gameFlashFreeGame(highscore) {
 //........................................................................................lost html.............................................................................................
 
 function lostHtml() {
-	var sideHoyde = $(window).height();
 	var playWidth = $(".tapt").width();
-
-	// $(".tapt, .playAgain").css({
-	// 	"width":""+((sideHoyde/3.9)*2)+"px",
-	// 	"left": ""+((sideBredde-playWidth)/2)+"px"
-	// });
-
 	$('.spillHolder').hide();
 	$('.taptHolder').show();
-	$(".kuleHolder").empty();
-	$('.poeng').hide();
+	$(".birdsContainer").empty();
+	$('.points').hide();
 }
 
