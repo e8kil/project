@@ -14,6 +14,10 @@ FastClick.attach(document.body);
 soundAndVibration();
 
 $(document).ready(function(){
+    lowLag.init();
+    lowLag.load("./sound/blop.wav", "bird");
+    lowLag.load("./sound/gameOver.mp3", "gameOver");
+    lowLag.load("./sound/complete.mp3", "complete");
 	//amplify.store("score", 0);
 	// amplify.store("level", 10);
     // amplify.store("10Birds", 10000000000);

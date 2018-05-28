@@ -437,8 +437,11 @@ function removeBirdTimeGame(id){
 
 function checkIfSoundAndVibrationTimeGame(winLose, vib){
 	if(sound == 1){
-		var audio = document.getElementById(winLose);
-    	audio.play();
+		if (winLose == "success") {
+			lowLag.play("bird");
+		} else {
+			lowLag.play("gameOver");
+		}
 	}
 	if(vibration == 1){
     	navigator.vibrate(vib);

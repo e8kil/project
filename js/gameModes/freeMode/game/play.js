@@ -195,8 +195,11 @@ function clearTimeoutsFreeGame() {
 
 function checkIfSoundAndVibrationFreeGame(wonLost, vib){
 	if(sound == 1){
-		var audio = document.getElementById(wonLost);
-		audio.play();
+		if(wonLost == "success") {
+			lowLag.play("bird");
+		} else {
+			lowLag.play("gameOver");
+		}
 	}
 	if(vibration == 1){
     	navigator.vibrate(vib);
