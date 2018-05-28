@@ -216,6 +216,7 @@ body {
 	font-size: 0px;
 	position: fixed;
 	-webkit-transition: all 500ms linear;
+	will-change: transform;
 }
 
 .completeBanner, .nxtLevelBanner, .failedBanner {
@@ -751,6 +752,7 @@ body {
     position: absolute; 
 	z-index:11;
 	background-color:rgba(0,0,0,0.2);
+	will-change: transform;
 }
 
 .taptHolderLevel {

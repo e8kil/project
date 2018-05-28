@@ -1,29 +1,32 @@
 var levels = [];
 
 // these numbers are required to get the info about the birds in the game. And they need to match when the special birds and timemode are used in the levels object. 
-var noneKillNumber = 29;
+var noneKillNumber = 12;
 var smallBirdNumber = 39;
 var doubleKillNumber = 49;
-var startTimeGame = 10;
+var startTimeGame = 6;
 
 // remember that the number of bird to kill can't be more than the first number in each level
 // [[numer of birds],[Bird speed],[[speed between],[speed between]],[none kill birds],[double kill birds],[small birds],[time mode, number of birds, time]]
 levels = [ 
 	[[1],[2500],[[1100],[1100]],[0],[0],[0],[false]],
-	[[6],[1500],[[1100],[1100]],[0],[0],[0],[false]],
+	[[4],[1500],[[1100],[1100]],[0],[0],[0],[false]],
 	[[6],[1500],[[1000],[1000]],[0],[0],[0],[false]],
 	[[8],[1500],[[1000],[1000]],[0],[0],[0],[false]],
 	[[10],[1400],[[800],[800]],[0],[0],[0],[false]],
-	[[12],[1400],[[800],[800]],[0],[0],[0],[false]],
-	[[15],[1300],[[800],[800]],[0],[0],[0],[false]],
-	[[18],[1300],[[800],[800]],[0],[0],[0],[false]],
-	[[20],[1200],[[600],[600]],[0],[0],[0],[false]],
-	[[25],[1150],[[600],[600]],[0],[0],[0],[true, 5, 10]],
+	[[0],[1150],[[600],[600]],[0],[0],[0],[true, 5, 10]],
+	[[12],[2500],[[200],[600]],[0],[0],[0],[false]],
+	[[6],[850],[[700],[3500]],[0],[0],[0],[false]],
+	[[8],[800],[[700],[3500]],[0],[0],[0],[false]],
+	[[20],[1300],[[600],[600]],[0],[0],[0],[false]],
+	
 
-	[[10],[840],[[600],[3000]],[0],[0],[0],[false]],
-	[[12],[840],[[600],[3000]],[0],[0],[0],[false]],
-	[[10],[820],[[500],[2000]],[0],[0],[0],[false]],
-	[[12],[820],[[500],[2000]],[0],[0],[0],[false]],
+	[[0], [0], [[0], [0]], [0], [0], [0], [true, 8, 10]],
+	[[10],[1400],[[800],[800]],[2],[0],[0],[false]],
+	[[10],[1200],[[800],[800]],[10],[0],[0],[false]],
+	[[20],[1700],[[550],[550]],[15],[0],[0],[false]],
+	[[6],[850],[[300],[3500]],[6],[0],[0],[false]],
+	[[20], [820], [[500], [2000]], [0], [0], [0], [false]],
 	[[10],[810],[[600],[650]],[0],[0],[0],[false]],
 	[[12],[810],[[600],[650]],[0],[0],[0],[false]],
 	[[14],[800],[[600],[650]],[0],[0],[0],[false]],
@@ -178,7 +181,8 @@ $(document).on("click", ".levelSky2", function() {
 	}
 	else if(levels[(currentLevel-1)][6][0] === true) {
 		$('.levelHolder').hide();
-		timeLevelTimeGame = levels[startTimeGame-1][6];
+		timeLevelTimeGame = levels[(currentLevel-1)][6];
+		console.log(timeLevelTimeGame);
 		$(".numberOfBirdsToKill").html(timeLevelTimeGame[1]);
 		$(".timeToKillTheBirds").html(timeLevelTimeGame[2]);
 		$("#information9").show();

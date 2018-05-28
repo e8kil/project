@@ -20,6 +20,7 @@
     -webkit-transition: top linear;
     -webkit-transition: transform linear;
     z-index:1000;
+    will-change: transform;
 }
 
 .killx2Bird {

@@ -148,7 +148,7 @@ function fallFreeGame(id, leftright){
 	var birdDistanceToTop = $("#" + id + "").offset().top;
 	var birdFall = $(window).height() - birdDistanceToTop;
 	var percentScreenFall = 1 - birdDistanceToTop / $(window).height();
-
+	var birdDistanceFromLeft = $("#" + id + "").offset().left + 20;
 	$("#" + id).css({
 		"-webkit-transition": "all 0ms linear",
 		"-webkit-transform": "translate3d(0px, 0px, 0px)",
@@ -160,7 +160,7 @@ function fallFreeGame(id, leftright){
 
 	if (leftright === 1) {
 		$("#" + id).html("<div class='spinLeft deadBirdLeft'></div>");
-		$("#" + id).css("-webkit-transform", "translate3d(400px, 0px, 0px)");
+		$("#" + id).css("-webkit-transform", "translate3d(" + birdDistanceFromLeft + 100 +"px, 0px, 0px)");
 	}
 	else {
 		$("#" + id).html("<div class='spinRight deadBirdRight'></div>");
